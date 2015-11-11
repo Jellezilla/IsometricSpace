@@ -4,7 +4,14 @@ using System.Collections;
 public class GameStateHandler : MonoBehaviour {
 
 	private Texture2D GameLogo;
+	private Material currentMat;
 
+	public Material GetCurrentMat() {
+		return currentMat;
+	}
+	public void SetCurrentMat(Material mat) {
+		currentMat = mat;
+	}
 	// Use this for initialization
 	void Start () {
 		DontDestroyOnLoad (transform);
@@ -16,11 +23,17 @@ public class GameStateHandler : MonoBehaviour {
 		if(Input.GetKeyDown (KeyCode.G)) {
 			if(Application.loadedLevel == 1)
 			{
-				Application.LoadLevel (2);
+				StartCoroutine(ChangeLevel(2));
+
 			} else {
-				Application.LoadLevel (1);
+				StartCoroutine(ChangeLevel(1));
 			}
 		}
+	}
+	IEnumerator ChangeLevel(int level) {
+		float fadeTime = GameObject.Find ("SceneFader").GetComponent<Fading>().BegindFade(1);
+		yield return new WaitForSeconds (fadeTime);
+		Application.LoadLevel (level);
 	}
 	void OnGUI() {
 		if (Application.loadedLevel == 0) {
@@ -28,7 +41,7 @@ public class GameStateHandler : MonoBehaviour {
 			GUI.DrawTexture (new Rect(Screen.width/2-GameLogo.width/2, Screen.height/2-200, GameLogo.width, GameLogo.height), GameLogo);
 
 			if (GUI.Button(new Rect(Screen.width/2-100, Screen.height/2-50, 200, 100), "Explore a new galaxy"))
-				Application.LoadLevel(1);
+				StartCoroutine(ChangeLevel(1));
 
 			if(GUI.Button (new Rect(Screen.width/2-100, Screen.height/2+60, 200, 50), "Options"))
 				Debug.Log ("you ain't got no motherfucking options bitch!");	

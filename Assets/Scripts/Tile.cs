@@ -30,6 +30,6 @@ public class Tile : MonoBehaviour {
 	}	
 
 	public void SetTileMat(Material _mat) {
-		mat = _mat;
+		transform.GetComponent<Renderer> ().material = _mat;
 	}
 }
