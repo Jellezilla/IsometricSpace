@@ -4,34 +4,49 @@ using UnityEditor;
 
 public class SolarSystemGen : MonoBehaviour {
 
-
+	private bool confirmation;
+	private Rect windowRect;
 	// Use this for initialization
 	void Start () {
+		windowRect = new Rect(Screen.width/2-200, Screen.height/2-100, 400,200);
+		confirmation = false;
 		GenerateSolarSystem (8);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetMouseButtonDown (0)) {
-			Debug.Log ("hej fede!");
 			Ray ray  = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 
-
-
 			if(Physics.Raycast (ray, out hit)) {
 				if(hit.transform.tag == "Planet") {
-					//Material tmpMat = hit.transform.GetComponent<Renderer>().material; // as Material;
 					GameObject.Find ("GameStateHandler").GetComponent<GameStateHandler>().SetCurrentMat(hit.transform.GetComponent<Renderer>().material);
 					Debug.Log ("iniating warp drive!");
 					StartCoroutine(ChangeLevel (Application.loadedLevel+1));
-//					Application.LoadLevel (Application.loadedLevel+1);
 				}
 			}
 			Debug.Log ("planet not found!");
 		}
 	}
+	void OnGUI() {
+		if(GUI.Button(new Rect(Screen.width-215, 15, 200, 35), "Warp to new Solar System")) {
+			confirmation = true;
+		}
+		if(confirmation) {
 
+			Rect WindowRect = GUI.Window(0,windowRect, ConfirmWindow, "Confirm leaving solar system");
+		}
+	}
+	void ConfirmWindow(int windowID) {
+		GUI.TextArea (new Rect (15, 20, 370, 50), "you are about to leave this solar system. Once you do, you will never be able to return to this place again. Are you sure you want to leave this solar system?");
+		if(GUI.Button (new Rect(100, 150, 85, 20), "Yes")) {
+			StartCoroutine(ChangeLevel(Application.loadedLevel));
+		}
+		if(GUI.Button (new Rect(215, 150, 85, 20), "No")) {
+			confirmation = false;
+		}
+	}
 	IEnumerator ChangeLevel(int level) {
 		float fadeTime = GameObject.Find ("SceneFader").GetComponent<Fading>().BegindFade(1);
 		yield return new WaitForSeconds (fadeTime);
