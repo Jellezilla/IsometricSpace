@@ -39,7 +39,7 @@ public class SolarSystemGen : MonoBehaviour {
 		}
 	}
 	void ConfirmWindow(int windowID) {
-		GUI.TextArea (new Rect (15, 20, 370, 50), "you are about to leave this solar system. Once you do, you will never be able to return to this place again. Are you sure you want to leave this solar system?");
+		GUI.TextArea (new Rect (15, 20, 370, 100), "You are about to leave this solar system. Once you do, you will never be able to return to this place again.\nAny structures built will be abandoned. \n\nAre you sure you want to leave this solar system?");
 		if(GUI.Button (new Rect(100, 150, 85, 20), "Yes")) {
 			StartCoroutine(ChangeLevel(Application.loadedLevel));
 		}
