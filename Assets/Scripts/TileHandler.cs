@@ -46,9 +46,9 @@ public class TileHandler : MonoBehaviour {
 
     }
 
-    public Transform GetTile(int x, int y)
+    public Tile GetTile(int x, int y)
     {
-        return TileMap[x, y].transform;
+        return TileMap[x, y];
     }
     public List<Tile> GetAdjacent(Tile tile)
     {

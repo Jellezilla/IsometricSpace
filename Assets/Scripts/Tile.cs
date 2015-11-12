@@ -5,10 +5,11 @@ public class Tile : MonoBehaviour {
 
 
     public Tile prev;
-   
+	private Material mat;
+
     // Use this for initialization
     void Start () {
-	
+		mat = transform.GetComponent<Renderer> ().material;
 	}
 	
 	// Update is called once per frame
@@ -24,4 +25,11 @@ public class Tile : MonoBehaviour {
     {
         prev = _prev;
     }
+	public Material GetTileMat() {
+		return mat;
+	}	
+
+	public void SetTileMat(Material _mat) {
+		transform.GetComponent<Renderer> ().material = _mat;
+	}
 }
