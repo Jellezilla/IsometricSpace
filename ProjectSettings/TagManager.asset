@@ -7,6 +7,8 @@ TagManager:
   - Tile
   - God
   - Planet
+  - Target
+  - Seeker
   layers:
   - Default
   - TransparentFX
@@ -16,9 +18,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Unwalkable
+  - Grass
+  - Swamp
   - 
   - 
   - 
