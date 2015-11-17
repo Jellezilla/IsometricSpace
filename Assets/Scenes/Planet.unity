@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 261953375}
   - 114: {fileID: 261953374}
+  - 114: {fileID: 261953376}
   m_Layer: 0
   m_Name: TileHandler
   m_TagString: Untagged
@@ -127,6 +128,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &261953376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 261953373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81035ee5d52ad424a89ede6c52ad84d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &330887043
 Prefab:
   m_ObjectHideFlags: 0

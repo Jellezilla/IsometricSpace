@@ -1,4 +1,4 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -28,7 +28,7 @@ public class Grid : MonoBehaviour {
 	Node[,] grid;
 	float nodeDiameter;
 	GridSize gridSize;
-	bool displayGridGizmos; 
+	public bool displayGridGizmos; 
 
 
 	public int maxSize{
@@ -43,7 +43,6 @@ public class Grid : MonoBehaviour {
 		nodeDiameter = nodeRadius*2;
 		gridSize.x = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
 		gridSize.y = Mathf.RoundToInt(gridWorldSize.y/nodeDiameter);
-		CreateGrid();
 
 		foreach (TerrainType region in walkableRegions){
 			walkableMask.value += region.terrainMask.value;
@@ -51,12 +50,26 @@ public class Grid : MonoBehaviour {
 			walkableRegionsDictionary.Add((int)Mathf.Log (region.terrainMask.value, 2), region.terrainWeight);
 		}
 	}
-	
 
+	void Start(){
+		StartCoroutine(WaitOneFrame());
+		//CreateGrid();
+
+	}
+
+
+
+	IEnumerator WaitOneFrame(){
+
+		yield return null;
+
+		CreateGrid();
+
+	}
 	public Node NodeFromWorldPoint(Vector3 worldPosition){
 
-		Vector2 percent = new Vector2((worldPosition.x + gridWorldSize.x/2) / gridWorldSize.x, 
-		                              (worldPosition.z + gridWorldSize.y/2) / gridWorldSize.y);
+		Vector2 percent = new Vector2(((worldPosition.x - transform.position.x) + gridWorldSize.x/2) / gridWorldSize.x, 
+		                              (( worldPosition.z - transform.position.z) + gridWorldSize.y/2) / gridWorldSize.y);
 		percent.x = Mathf.Clamp01(percent.x);
 		percent.y = Mathf.Clamp01(percent.y);
 
