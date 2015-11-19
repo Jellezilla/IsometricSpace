@@ -469,7 +469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &483173825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +482,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1264737775}
+  destinationReached: 0
+  start: 1
 --- !u!23 &483173826
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -560,7 +562,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519932031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.80036926, y: 3.56530952, z: 7.03443384}
+  m_LocalPosition: {x: 5.80036926, y: 0, z: 7.03443384}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 621779098}
@@ -1388,7 +1390,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1206852427}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.86999989, y: 0, z: -3.49000001}
+  m_LocalPosition: {x: 15.4899998, y: 0, z: -3.49000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 519932032}
@@ -1483,7 +1485,7 @@ GameObject:
   - 136: {fileID: 1264737773}
   - 23: {fileID: 1264737772}
   m_Layer: 0
-  m_Name: Target
+  m_Name: Player
   m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1540,7 +1542,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1264737771}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.9000001, y: 0, z: 15}
+  m_LocalPosition: {x: 13, y: 0, z: 27.3999996}
   m_LocalScale: {x: .800000012, y: .800000012, z: .800000012}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1567,7 +1569,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1405632671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.0699997, y: 0, z: 3.43000007}
+  m_LocalPosition: {x: 23.4200001, y: 0, z: 3.43000007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 519932032}
@@ -1709,6 +1711,7 @@ GameObject:
   - 23: {fileID: 1454536125}
   - 114: {fileID: 1454536124}
   - 114: {fileID: 1454536123}
+  - 114: {fileID: 1454536129}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Seeker
@@ -1736,18 +1739,21 @@ MonoBehaviour:
   patrolWalkSpeed: 11
   delayAtPatrolPointMin: .100000001
   delayAtPatrolPointMax: .400000006
+  shouldPatrol: 0
 --- !u!114 &1454536124
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1454536122}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7a39651cd0d647dbab31ef9b3e50f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1264737775}
+  destinationReached: 0
+  start: 0
 --- !u!23 &1454536125
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1804,6 +1810,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1454536129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1454536122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62e548f6402d490ca26d83907d98265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
 --- !u!1 &1466248048
 GameObject:
   m_ObjectHideFlags: 0

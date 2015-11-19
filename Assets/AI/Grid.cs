@@ -97,9 +97,7 @@ public class Grid : MonoBehaviour {
 				}
 			}
 		}
-
 		return neighbours;
-
 	}
 
 	void CreateGrid(){
@@ -120,12 +118,9 @@ public class Grid : MonoBehaviour {
 					RaycastHit hit;
 					if (Physics.Raycast(ray, out hit, 100, walkableMask)){
 						walkableRegionsDictionary.TryGetValue(hit.collider.gameObject.layer, out weight);
-						print (hit.collider.gameObject.layer + ": " + weight);
 					}
 				}
-
 				grid[x,y] = new Node(walkable, worldPoint, new GridSize(x,y), weight);
-
 			}
 		}
 	}

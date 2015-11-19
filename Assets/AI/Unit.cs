@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Unit : MonoBehaviour {
@@ -7,45 +7,73 @@ public class Unit : MonoBehaviour {
 	float speed = 20;
 	Vector3[] path;
 	int targetIndex;
+	public bool destinationReached = false;
+	public bool start = false;
 
 	void Start(){
-		StartCoroutine(WaitOneFrame());
+		if (start){
+
+			StartCoroutine(WaitOneFrame());
+		}
+	}
+
+	public void MakeRequest(Vector3 target){
+
+		PathRequestManager.RequestPath(transform.position, target, OnPathFound);
+
 	}
 
 	
 	IEnumerator WaitOneFrame(){
 		
-		yield return new WaitForSeconds(1);
-		
+		yield return new WaitForSeconds(.5f);
 		PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
 
 	}
-
+	
 	public void OnPathFound(Vector3[] newPath, bool pathSuccesful){
 
 		if (pathSuccesful){
 			path = newPath;
 			StopCoroutine("FollowPath");
 			StartCoroutine("FollowPath");
-
 		}
 	}
+
+	public void StopPathFollowing(){
+
+		StopCoroutine("FollowPath");
+
+	}
+
 
 	IEnumerator FollowPath(){
-		Vector3 currentWaypoint = path[0];
-
-		while (true){
-			if (transform.position == currentWaypoint){
-				targetIndex++;
-				if (targetIndex >= path.Length){
-					yield break;
+		if (path.Length > 0){
+			Vector3 currentWaypoint = path[0];
+			Vector3 lastWaypoint = path[path.Length-1];
+			targetIndex = 0;
+			while (true){
+				if (transform.position == currentWaypoint){
+					targetIndex++;
+					if (targetIndex >= path.Length){
+						yield break;
+					}
+					currentWaypoint = path[targetIndex];
 				}
-				currentWaypoint = path[targetIndex];
+				transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+
+				if (transform.position == lastWaypoint ){
+					destinationReached = true;
+				}
+
+				yield return null; 
 			}
-			transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-			yield return null; 
+			yield return null;
 		}
+
 	}
+
+
 
 	public void OnDrawGizmos(){
 
@@ -54,12 +82,14 @@ public class Unit : MonoBehaviour {
 			for (int i = targetIndex; i < path.Length; i++){
 				Gizmos.color = Color.black;
 				Gizmos.DrawCube(path[i], Vector3.one/3);
+
 				if (i == targetIndex){
 					Gizmos.DrawLine(transform.position, path[i]);
 				}
 				else {
 					Gizmos.DrawLine(path[i-1], path[i]);
 				}
+
 			}
 
 		}

@@ -9,16 +9,22 @@ public class Patrol : MonoBehaviour {
 	public float patrolWalkSpeed = 2.0f;
 	public float delayAtPatrolPointMin = 1.0f;
 	public float delayAtPatrolPointMax = 5.0f;
-	
+	FiniteStateMachine fsm;
 	private PatrolBehaviorState patrolBehaviorState;
 	private int patrolPointIndex;
 	private float timeToWaitBeforeNextMove;
-	
+
+	private Unit unit;
 	Vector3 directionVector;	
 	Transform destination;
+	bool pathRequested = false;
+
+	public bool shouldPatrol = false;
 	
 	void Start()
 	{
+		fsm = GetComponent<FiniteStateMachine>();
+		unit = GetComponent<Unit>();
 		patrolPointIndex = 0;
 		patrolBehaviorState = PatrolBehaviorState.MovingToNextPatrolPoint;
 		timeToWaitBeforeNextMove = -1.0f; 
@@ -30,7 +36,7 @@ public class Patrol : MonoBehaviour {
 	{
 		return patrolPoints[patrolPointIndex].position;
 	}
-	
+
 	void ChooseNextDestination()
 	{
 		patrolPointIndex++;
@@ -39,16 +45,32 @@ public class Patrol : MonoBehaviour {
 			patrolPointIndex = 0;
 		}
 	}
-	
-	
+
+
+
+	public void ResumePatrolling(){
+		shouldPatrol = true;
+		patrolBehaviorState = PatrolBehaviorState.WaitingForNextMove;
+	//	UpdateMovingToNextPatrolPoint();
+		UpdateWaitingForNextMove();
+		fsm.state = FiniteStateMachine.State.Patrol;
+
+	}
+
 	void UpdateMovingToNextPatrolPoint()
 	{
 		Vector3 currentDestination = GetCurrentDestination();
-		transform.forward = currentDestination - transform.position;
-		transform.Translate(Vector3.forward * patrolWalkSpeed * Time.deltaTime);
-		
-		if ((GetCurrentDestination() - transform.position).magnitude < 0.3f)
-		{
+	
+		//transform.forward = currentDestination - transform.position;
+		//transform.Translate(Vector3.forward * patrolWalkSpeed * Time.deltaTime);
+
+		if (!pathRequested){
+			pathRequested = true;
+			unit.MakeRequest(currentDestination);
+		}
+
+		if (unit.destinationReached){
+			unit.destinationReached = false;
 			timeToWaitBeforeNextMove = Random.Range(delayAtPatrolPointMin, delayAtPatrolPointMax);
 			patrolBehaviorState = PatrolBehaviorState.WaitingForNextMove;
 		}
@@ -62,8 +84,7 @@ public class Patrol : MonoBehaviour {
 		if (timeToWaitBeforeNextMove < 0.0f)
 		{
 			ChooseNextDestination();
-			patrolBehaviorState = PatrolBehaviorState.MovingToNextPatrolPoint;
-			
+
 			if (patrolPointIndex == patrolPoints.GetLength(0)-1){
 				destination = patrolPoints[0];
 			}
@@ -74,20 +95,25 @@ public class Patrol : MonoBehaviour {
 			else{
 				destination = patrolPoints[patrolPointIndex+1]; 
 			}
+			pathRequested = false;
+			patrolBehaviorState = PatrolBehaviorState.MovingToNextPatrolPoint;
+
 		}
 	}
 	
 	void Update()
 	{
-		
-		if (patrolBehaviorState == PatrolBehaviorState.MovingToNextPatrolPoint)
-		{
-			UpdateMovingToNextPatrolPoint();
-		}
-		else if (patrolBehaviorState == PatrolBehaviorState.WaitingForNextMove)
-		{
-			UpdateWaitingForNextMove();
-			
+
+		if (shouldPatrol){
+			if (patrolBehaviorState == PatrolBehaviorState.MovingToNextPatrolPoint)
+			{
+				UpdateMovingToNextPatrolPoint();
+			}
+			else if (patrolBehaviorState == PatrolBehaviorState.WaitingForNextMove)
+			{
+				UpdateWaitingForNextMove();
+				
+			}
 		}
 	}
 	
