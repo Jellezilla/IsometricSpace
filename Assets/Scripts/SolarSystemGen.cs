@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
@@ -6,8 +6,10 @@ public class SolarSystemGen : MonoBehaviour {
 
 	private bool confirmation;
 	private Rect windowRect;
+	GameStateHandler gsh;
 	// Use this for initialization
 	void Start () {
+		gsh = GameObject.Find ("GameStateHandler").GetComponent<GameStateHandler> ();
 		windowRect = new Rect(Screen.width/2-200, Screen.height/2-100, 400,200);
 		confirmation = false;
 		GenerateSolarSystem (8);
@@ -21,8 +23,15 @@ public class SolarSystemGen : MonoBehaviour {
 
 			if(Physics.Raycast (ray, out hit)) {
 				if(hit.transform.tag == "Planet") {
-					GameObject.Find ("GameStateHandler").GetComponent<GameStateHandler>().SetCurrentMat(hit.transform.GetComponent<Renderer>().material);
-					Debug.Log ("iniating warp drive!");
+					//GameObject.Find ("GameStateHandler").GetComponent<GameStateHandler>().SetCurrentMat(hit.transform.GetComponent<Renderer>().material); // her har vi allerede noget!! Sæt en planet type istedet for at sætte mats. Planet type = enum fætter.
+					Orbit orb = hit.transform.GetComponent<Orbit>();
+					if(orb.distanceToStar < 20.0f) {
+						gsh.SetCurrentPlanetType(GameStateHandler.PlanetType.Warm);
+					} else if(orb.distanceToStar > 20.0f && orb.distanceToStar < 40.0f) {
+						gsh.SetCurrentPlanetType(GameStateHandler.PlanetType.Habitable);
+					} else if (orb.distanceToStar > 40.0f) {
+						gsh.SetCurrentPlanetType(GameStateHandler.PlanetType.Cold);
+					}	
 					StartCoroutine(ChangeLevel (Application.loadedLevel+1));
 				}
 			}
@@ -131,9 +140,7 @@ public class SolarSystemGen : MonoBehaviour {
 
 		return _mat;
 	}
-
-
-
+ 
 
 	[CustomEditor(typeof(SolarSystemGen))]
 	class SunSystemBuilder : Editor {
