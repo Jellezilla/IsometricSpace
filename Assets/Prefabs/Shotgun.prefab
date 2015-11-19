@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &151180
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +560,10 @@ Prefab:
       propertyPath: gunLogo
       value: 
       objectReference: {fileID: 2800000, guid: 0aa38fa1f103719479c12a6b0bb10703, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 135754}
