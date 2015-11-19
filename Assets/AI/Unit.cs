@@ -9,7 +9,16 @@ public class Unit : MonoBehaviour {
 	int targetIndex;
 
 	void Start(){
+		StartCoroutine(WaitOneFrame());
+	}
+
+	
+	IEnumerator WaitOneFrame(){
+		
+		yield return new WaitForSeconds(1);
+		
 		PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+
 	}
 
 	public void OnPathFound(Vector3[] newPath, bool pathSuccesful){
@@ -44,7 +53,7 @@ public class Unit : MonoBehaviour {
 
 			for (int i = targetIndex; i < path.Length; i++){
 				Gizmos.color = Color.black;
-				Gizmos.DrawCube(path[i], Vector3.one);
+				Gizmos.DrawCube(path[i], Vector3.one/3);
 				if (i == targetIndex){
 					Gizmos.DrawLine(transform.position, path[i]);
 				}

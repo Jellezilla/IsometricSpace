@@ -5,16 +5,18 @@ public class Movement : MonoBehaviour {
 
     Rigidbody rigid;
     private float h, v;
-    private float maxSpeed;
+    public float maxSpeed;
+
+
 	// Use this for initialization
 	void Start () {
         rigid = transform.GetComponent<Rigidbody>();
-        maxSpeed = 3.0F;
+        //maxSpeed = 3.0F;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
+
 	}
     void FixedUpdate()
     {
