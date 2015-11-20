@@ -11,6 +11,7 @@ TagManager:
   - Seeker
   - Mission
   - MissionTarget
+  - Enemy
   layers:
   - Default
   - TransparentFX

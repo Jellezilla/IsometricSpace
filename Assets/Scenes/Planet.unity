@@ -543,6 +543,10 @@ Prefab:
       propertyPath: maxSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5465280, guid: 2f2ca77c136975a42a4d74f155be7cb2, type: 2}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f2ca77c136975a42a4d74f155be7cb2, type: 2}
   m_IsPrefabParent: 0
@@ -562,6 +566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cash: 0
+  maxHealth: 100
   currentMission: {fileID: 0}
   activeMissions: []
   completedMissions: []
@@ -1414,8 +1419,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .419562399, y: 1.70683575, z: -.694045484}
-  m_Center: {x: 1.50501728e-05, y: 1.3710041, z: .0865861997}
+  m_Size: {x: .419562399, y: 2.49428129, z: -.694045484}
+  m_Center: {x: 3.55541706e-05, y: .977281332, z: .0866228044}
 --- !u!114 &1420042701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1502,11 +1507,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 2}
       propertyPath: m_TagString
-      value: Untagged
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 100116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 2}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5836d050fdb354479bcd0d285bf2f22, type: 2}
