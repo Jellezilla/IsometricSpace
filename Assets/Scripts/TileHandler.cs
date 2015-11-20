@@ -32,7 +32,7 @@ public class TileHandler : MonoBehaviour {
 		//SpawnTileGroup ();
 		//SpawnMap (0);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -189,15 +189,19 @@ public class TileHandler : MonoBehaviour {
 			for(int y = 0; y < columns; y++) {
 				if(tmpMap[x,y] == 1) {
 					TileMap[x,y].type = Tile.TileType.ground1;
+					TileMap[x,y].gameObject.layer = 9; // Grass
 					TileMap[x,y].SetTileMat(ground1);
 				} else if (tmpMap[x,y] == 2) {
 					TileMap[x,y].type = Tile.TileType.ground2;
+					TileMap[x,y].gameObject.layer = 10; // Sand
 					TileMap[x,y].SetTileMat(ground2);
 				} else if (tmpMap[x,y] == 3) {
 					TileMap[x,y].type = Tile.TileType.ground3;
+					TileMap[x,y].gameObject.layer = 11; // Mud
 					TileMap[x,y].SetTileMat(ground3);
 				} else if (tmpMap[x,y] == 4){
 					TileMap[x,y].type = Tile.TileType.liquid;
+					TileMap[x,y].gameObject.layer = 10; // Unwalkable
 					TileMap[x,y].SetTileMat(liquid);
 				}
 
