@@ -103,7 +103,7 @@ public class Grid : MonoBehaviour {
 	}
 
 	void CreateGrid(){
-
+		print (gridSize.x + " "+ gridSize.y);
 		grid = new Node[gridSize.x, gridSize.y];
 		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.forward * gridWorldSize.y/2;
 
@@ -120,7 +120,7 @@ public class Grid : MonoBehaviour {
 					RaycastHit hit;
 					if (Physics.Raycast(ray, out hit, 100, walkableMask)){
 						walkableRegionsDictionary.TryGetValue(hit.collider.gameObject.layer, out weight);
-						print (hit.collider.gameObject.layer + ": " + weight);
+						//print (hit.collider.gameObject.layer + ": " + weight);
 					}
 				}
 

@@ -2,50 +2,66 @@
 using System.Collections;
 
 [RequireComponent(typeof (Patrol))]
-[RequireComponent(typeof (Unit))]
+[RequireComponent(typeof (EnemyAttributes))]
 
 
 public class FiniteStateMachine : MonoBehaviour {
-
-	public enum State{Patrol, Chase, Attack, Resign};
-
-	Unit unit;
+	
+	public enum State{Patrol, Chase, Attack, Resign, Dead};
+	
 	Patrol patrol;
 	public State state;
 	Transform player;
 	float chaseDistance = 10f;
+	float attackDistance = 7;
 	Vector3 lastKnownPlayerPos;
-
+	Animator anim;
+	EnemyAttributes enemy;
+	bool setAttackOnce = true;
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag("Target").transform;
+		enemy = GetComponent<EnemyAttributes>();
+		player = GameObject.FindGameObjectWithTag("Player").transform;
 		state = State.Patrol;
-		unit = GetComponent<Unit>();
 		patrol = GetComponent<Patrol>();
-
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-		if (distanceToPlayer <= chaseDistance){
-
-			RaycastHit hit;
-			if(Physics.Raycast(transform.position, (player.position-transform.position).normalized, out hit, chaseDistance)){
-
-				Debug.DrawRay(transform.position, (player.position-transform.position).normalized*chaseDistance, Color.green);
-
+		if (enemy.alive){
+			float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+			if (distanceToPlayer <= chaseDistance){
+							
+				RaycastHit hit;
+				if(Physics.Raycast(transform.position, (player.position-transform.position).normalized, out hit, chaseDistance)){		
+					Debug.DrawRay(transform.position, (player.position-transform.position).normalized*chaseDistance, Color.green);		
+				}
+				if (distanceToPlayer > attackDistance){
+				state = State.Chase;
+				}
+				else {
+					state = State.Attack;
+				}
 			}
-			state = State.Chase;
-
+			
+			else {
+				if (state == State.Chase && state == State.Attack)
+					state = State.Resign;
+			}
 		}
 		else {
-			if (state == State.Chase)
-				state = State.Resign;
+			state = State.Dead;
 		}
 
 		switch(state){
-
+		case State.Attack:
+			enemy.StopPathFollowing();
+			patrol.shouldPatrol = false;
+			transform.forward = player.position - transform.position;
+			transform.Translate(Vector3.forward * 1 * Time.deltaTime);
+			if (setAttackOnce)
+				StartCoroutine(AttackPlayer());
+			break;
 		case State.Patrol:
 			StartCoroutine(setPatrol());
 			break;
@@ -54,12 +70,32 @@ public class FiniteStateMachine : MonoBehaviour {
 			patrol.ResumePatrolling();
 			break;
 		case State.Chase:
-			unit.StopPathFollowing();
+			enemy.StopPathFollowing();
 			patrol.shouldPatrol = false;
 			transform.forward = player.position - transform.position;
-			transform.Translate(Vector3.forward * 10 * Time.deltaTime);
+			transform.Translate(Vector3.forward * 2 * Time.deltaTime);
+			break;
+		case State.Dead:
+			StopCoroutine(AttackPlayer());
+			Vector3 tmp = transform.position;
+			transform.position = tmp;
 			break;
 		}
+
+		if (state != State.Attack){
+			setAttackOnce = true;
+		}
+	}
+
+	IEnumerator AttackPlayer(){
+		setAttackOnce = false;
+		int numOfShots = Random.Range(3,6);
+		float delay = Random.Range (0.4f,2f);
+		IEnumerator shoot = enemy.ShootAtTarget(player.position, numOfShots);
+		yield return StartCoroutine(shoot);
+		yield return new WaitForSeconds(delay);
+
+		StartCoroutine(AttackPlayer());
 	}
 
 	IEnumerator setPatrol(){

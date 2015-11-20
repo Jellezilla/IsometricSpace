@@ -9,6 +9,8 @@ TagManager:
   - Planet
   - Target
   - Seeker
+  - Mission
+  - MissionTarget
   layers:
   - Default
   - TransparentFX
@@ -20,8 +22,8 @@ TagManager:
   - 
   - Unwalkable
   - Grass
-  - Swamp
-  - 
+  - Sand
+  - Mud
   - 
   - 
   - 
