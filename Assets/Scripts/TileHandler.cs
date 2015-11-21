@@ -170,7 +170,7 @@ public class TileHandler : MonoBehaviour {
  		
 		switch (gsh.GetCurrentPlanetType()) {
 			case GameStateHandler.PlanetType.Cold:
-				ground1 =	new Material(Resources.Load ("Materials/TileMats/habit_ground1", typeof(Material)) as Material);
+				ground1 =	new Material(Resources.Load ("Materials/TileMats/cold_ground1", typeof(Material)) as Material);
 				ground2 =	new Material(Resources.Load ("Materials/TileMats/cold_ground2", typeof(Material)) as Material);
 				ground3 =	new Material(Resources.Load ("Materials/TileMats/cold_ground3", typeof(Material)) as Material);
 				liquid =  	new Material(Resources.Load ("Materials/TileMats/cold_liquid", typeof(Material)) as Material);
