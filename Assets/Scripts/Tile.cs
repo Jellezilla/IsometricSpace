@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Tile : MonoBehaviour {
 
-
+	TileHandler th;
     public Tile prev;
 	private Material mat;
 	public enum TileType { ground1, ground2, ground3, liquid, wall, unassigned };
@@ -42,7 +42,7 @@ public class Tile : MonoBehaviour {
 	}
 	void init() {
 		StartCoroutine(waitMethod((transform.position.x+transform.position.z)/10));
-		blocked = true;
+		//blocked = true;
 
 	}
 

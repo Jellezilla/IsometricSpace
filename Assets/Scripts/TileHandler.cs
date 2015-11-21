@@ -27,7 +27,11 @@ public class TileHandler : MonoBehaviour {
 		SpawnTiles();
 		for (int i = 0; i < 11; i++) {
 			CellularAutomata();
+		
 		}
+		SetMaterials ();
+		//StartCoroutine (wait (2.2f));
+		SetColliderOnBlockedTiles ();
 		//TilePrefab.transform.GetComponent<Tile> ().type = Tile.TileType.unassigned;
 		//SpawnTileGroup ();
 		//SpawnMap (0);
@@ -42,7 +46,7 @@ public class TileHandler : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (KeyCode.T)) {
 			CellularAutomata ();
-
+			SetMaterials ();
 		}
 		if (Input.GetKeyDown (KeyCode.U)) {
 			AddResources ();
@@ -127,7 +131,7 @@ public class TileHandler : MonoBehaviour {
 	}
 	// reemake the get neighbour methods to int map
 	void CellularAutomata() {
-
+		Debug.Log ("cell!");
 		for (int x = 0; x < rows; x++) {
 			for (int y = 0; y < columns; y++) {
 				List<int> tmpList = GetIntAdjacent (x,y);
@@ -139,10 +143,14 @@ public class TileHandler : MonoBehaviour {
 
 //				UnityEngine.Debug.Log ("most: "+most);
 				tmpMap[x,y] = most;
-
+	
 			}
 		}
-		SetMaterials ();
+		for (int i = 0; i < rows; i++) {
+			for(int j = 0; j < columns; j++) {
+			map[i,j] = tmpMap[i,j];
+			}
+		}
 	}
 	// apply cellular automata to it. 
 	// set tiles property to int map and set mats. 
@@ -203,10 +211,11 @@ public class TileHandler : MonoBehaviour {
 					TileMap[x,y].type = Tile.TileType.liquid;
 					TileMap[x,y].gameObject.layer = 10; // Unwalkable
 					TileMap[x,y].SetTileMat(liquid);
+					TileMap[x,y].blocked = true;
 				}
 
 			// not implemented yet
-				map[x,y] = tmpMap[x,y];
+	
 		   
 				   
 			}
@@ -230,11 +239,42 @@ public class TileHandler : MonoBehaviour {
 
 
 	}
+	private void SetColliderOnBlockedTiles (){
+		for(int x = 0; x < rows; x++) {
+			for(int y = 0; y < columns; y++) {
+				if(TileMap[x,y].blocked && isNeighbourWalkable(x,y)) {
+					TileMap[x,y].GetComponent<BoxCollider>().size = new Vector3(1.0f, 15.0f, 1.0f);
+					Debug.Log ("fede!");
+				}
+			}
+		}
+	}
+	public bool isNeighbourWalkable(int x, int y) {
+		List<Tile> tmpList = new List<Tile> ();
+		try {
+			if(!TileMap[x-1,y].blocked ||  !TileMap[x,y-1].blocked || !TileMap[x+1,y].blocked || !TileMap[x,y+1].blocked )
+			{
+				return true;
+			} else {
+				return false;
+			}
+		} catch(System.IndexOutOfRangeException) {
+			return false;
+		}
 
+	}
 	#region helpers & software rot
  	private void AddWalls() {
-		
-		WallPrefab.transform.GetComponent<Renderer>().material = Resources.Load("Materials/PlanetMats/moon", typeof(Material)) as Material;
+
+
+		if (gsh.GetCurrentPlanetType () == GameStateHandler.PlanetType.Warm) {
+			WallPrefab.transform.GetComponent<Renderer>().material = Resources.Load("Materials/TileMats/warm_wall", typeof(Material)) as Material;
+		} else if (gsh.GetCurrentPlanetType () == GameStateHandler.PlanetType.Habitable) {
+			WallPrefab.transform.GetComponent<Renderer>().material = Resources.Load("Materials/TileMats/habit_wall", typeof(Material)) as Material;
+		} else if (gsh.GetCurrentPlanetType () == GameStateHandler.PlanetType.Cold) {
+			WallPrefab.transform.GetComponent<Renderer>().material = Resources.Load("Materials/TileMats/cold_wall", typeof(Material)) as Material;
+		}
+		//WallPrefab.transform.GetComponent<Renderer>().material = Resources.Load("Materials/PlanetMats/moon", typeof(Material)) as Material;
 		WallPrefab.transform.GetComponent<Tile> ().blocked = true;
 		
 		for (int i = 0; i < rows; i++) {
@@ -323,6 +363,11 @@ public class TileHandler : MonoBehaviour {
 		} catch(System.IndexOutOfRangeException) {
 		}
 		return tmpList;
+	}
+	IEnumerator wait(float delay)
+	{
+		yield return new WaitForSeconds (delay);
+
 	}
 }
 #endregion
