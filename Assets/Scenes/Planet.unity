@@ -395,7 +395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &401120999
 Transform:
   m_ObjectHideFlags: 0
@@ -407,6 +407,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 395449598}
+  - {fileID: 1143272436}
   m_Father: {fileID: 0}
   m_RootOrder: 16
 --- !u!114 &401121000
@@ -486,13 +487,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-    'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:RightArm'\n\tTransform
-    'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:RightFoot'\n\tTransform
-    'mixamorig:Head'\n\tTransform 'mixamorig:LeftUpLeg'\n\tand more ...\n\tFrom animation
-    clip 'mixamo.com'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &419772352
@@ -999,6 +994,60 @@ MonoBehaviour:
   maxHealth: 100
   speed: 2
   destinationReached: 0
+--- !u!1001 &980747468
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -.729719996
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.66199994
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 43.2569122
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 43.256916
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 43.256916
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: df8211a69d1384093b85e449ba5915a9, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1 &981129294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,6 +1450,10 @@ MonoBehaviour:
   missionType: 0
   rewardType: 0
   rewardValue: 50
+--- !u!4 &1143272436 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: 52f5b8b333f704c75afe1f4ab2f403c8, type: 3}
+  m_PrefabInternal: {fileID: 1817048115}
 --- !u!1 &1145656461
 GameObject:
   m_ObjectHideFlags: 0
@@ -2080,11 +2133,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 401120999}
     m_Modifications:
     - target: {fileID: 400000, guid: 52f5b8b333f704c75afe1f4ab2f403c8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.26523733
+      value: -5.66523743
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 52f5b8b333f704c75afe1f4ab2f403c8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2092,7 +2145,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 52f5b8b333f704c75afe1f4ab2f403c8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.11926937
+      value: -13.5992699
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 52f5b8b333f704c75afe1f4ab2f403c8, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2112,7 +2165,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 52f5b8b333f704c75afe1f4ab2f403c8, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52f5b8b333f704c75afe1f4ab2f403c8, type: 3}
@@ -2374,6 +2427,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 64.174202
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 11efdff41f790449c9e76f01ac3efcf2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11efdff41f790449c9e76f01ac3efcf2, type: 3}
   m_IsPrefabParent: 0
