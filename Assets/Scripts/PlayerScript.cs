@@ -12,17 +12,22 @@ public class PlayerScript : MonoBehaviour {
 	private float cachedY;
 	private float minXValue;
 	private float maxXValue;
-	private int currentHealth;
+	private float currentHealth;
+	private bool onHealthSpot = false;
+	public float chargeDownSpeed = 1f;
+	public float chargeUpSpeed = 10f;
+
+
 
 	// Everytime we access the CurrentHealth property, which changes the health, then the "HandleHealth" method is called, which adjusts the position and color of the health bar
-	private int CurrentHealth {
+	private float CurrentHealth {
 		get {return currentHealth;}
 		set {currentHealth = value;
 			HandleHealth();
 		}
 	}
 
-	public int maxHealth;
+	public float maxHealth;
 	public Text healthText;
 	public Image visualHealth;
 	public float coolDown;
@@ -50,9 +55,8 @@ public class PlayerScript : MonoBehaviour {
 	void Update () {
 		//HandleMovement();
 
-		if(!onCD && currentHealth > 0) {
-			StartCoroutine(CoolDownDmg());
-			CurrentHealth -= 1;
+		if(!onHealthSpot && currentHealth > 0) {
+			CurrentHealth -= (1f * Time.fixedDeltaTime) * chargeDownSpeed;
 		}
 
 //		if(!onCD && currentHealth > 0) {
@@ -93,13 +97,7 @@ public class PlayerScript : MonoBehaviour {
 			GetComponent<AudioSource>().Stop();
 		}
 	}
-
-	IEnumerator CoolDownDmg() {
-		onCD = true;
-		yield return new WaitForSeconds (coolDown);
-		onCD = false;
-	}
-
+	
 //	IEnumerator TakeDmg() {
 //		onCD = true;
 //		yield return new WaitForSeconds (takeDamage);
@@ -123,9 +121,10 @@ public class PlayerScript : MonoBehaviour {
 		if (other.name == "Health") {
 			// If we're not on cooldown and health is greater than "0", then cooldown.
 			if(!onCD && currentHealth < maxHealth) {
+				onHealthSpot = true;
 				//StopCoroutine(TakeDmg());
-				StartCoroutine(CoolDownDmg());
-				CurrentHealth += 1;
+				//StartCoroutine(CoolDownDmg());
+				CurrentHealth += (1 * Time.fixedDeltaTime) * chargeUpSpeed;
 			}
 		}
 
@@ -137,6 +136,9 @@ public class PlayerScript : MonoBehaviour {
 	void OnTriggerExit(Collider other) {
 		if(other.name == "Shop Area") {
 			guiShow = false;
+		}
+		if(other.name == "Health") {
+			onHealthSpot = false;
 		}
 	}
 
@@ -155,7 +157,7 @@ public class PlayerScript : MonoBehaviour {
 			if(GUI.Button(new Rect(20, 160, 200, 30), "Buy bigger oxygen tank $80,00")) {
 				Debug.Log("You clicked 'Buy bigger oxygen tank'");
 				spaceCash -= 80;
-				takeDamage = 1;
+				chargeDownSpeed = .6f;
 			}
 
 			if(GUI.Button(new Rect(20, 220, 200, 30), "Buy revolver $1.000,00")) {
@@ -175,9 +177,6 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 	}
-
-
-
 
 	private float MapValues(float x, float inMin, float inMax, float outMin, float outMax) {
 		return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
