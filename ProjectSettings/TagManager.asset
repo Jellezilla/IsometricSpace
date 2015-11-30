@@ -14,6 +14,11 @@ TagManager:
   - Enemy
   - GUI
   - Xhair
+  - PlayerShip
+  - Turbine
+  - Shop
+  - Air
+  - TileHandler
   layers:
   - Default
   - TransparentFX

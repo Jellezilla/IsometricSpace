@@ -5,7 +5,7 @@ public class Patrol : MonoBehaviour {
 	
 	private enum PatrolBehaviorState { MovingToNextPatrolPoint = 0, WaitingForNextMove = 1 }
 	
-	public Transform[] patrolPoints;
+	private Transform[] patrolPoints = new Transform[10];
 	public float patrolWalkSpeed = 2.0f;
 	public float delayAtPatrolPointMin = 1.0f;
 	public float delayAtPatrolPointMax = 5.0f;
@@ -17,18 +17,15 @@ public class Patrol : MonoBehaviour {
 	Vector3 directionVector;	
 	Transform destination;
 	bool pathRequested = false;
-	
 	public bool shouldPatrol = false;
 	
 	void Start()
 	{
 		enemy = GetComponent<EnemyAttributes>();
 		fsm = GetComponent<FiniteStateMachine>();
-		patrolPointIndex = 0;
-		patrolBehaviorState = PatrolBehaviorState.MovingToNextPatrolPoint;
-		timeToWaitBeforeNextMove = -1.0f; 
-		destination = patrolPoints [patrolPointIndex+1];
-		directionVector = destination.position - transform.position;
+
+		StartCoroutine(SetWayPoints());
+		//print (tile.transform.position);
 	}
 	
 	Vector3 GetCurrentDestination()
@@ -45,7 +42,27 @@ public class Patrol : MonoBehaviour {
 		}
 	}
 	
-	
+	IEnumerator SetWayPoints(){
+
+		TileHandler tileHandler = GameObject.FindGameObjectWithTag("TileHandler").GetComponent<TileHandler>();
+
+		while(!tileHandler.tileMapComplete){
+			yield return null;
+		}
+
+		for (int i = 0; i < patrolPoints.Length; i++){
+			Tile tile = tileHandler.GetWalkableTile();
+			patrolPoints[i] = tile.transform;
+		}
+
+		print ("patrol points set");
+		patrolPointIndex = 0;
+		patrolBehaviorState = PatrolBehaviorState.MovingToNextPatrolPoint;
+		timeToWaitBeforeNextMove = -1.0f; 
+		destination = patrolPoints [patrolPointIndex+1];
+		directionVector = destination.position - transform.position;
+
+	}
 	
 	public void ResumePatrolling(){
 		shouldPatrol = true;
@@ -104,7 +121,7 @@ public class Patrol : MonoBehaviour {
 	
 	void Update()
 	{
-		
+
 		if (shouldPatrol && enemy.alive){
 			if (patrolBehaviorState == PatrolBehaviorState.MovingToNextPatrolPoint)
 			{

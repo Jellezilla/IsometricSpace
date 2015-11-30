@@ -883,9 +883,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 400116}
   - 95: {fileID: 9500000}
+  - 65: {fileID: 6592914}
+  - 114: {fileID: 11405122}
+  - 114: {fileID: 11426554}
+  - 114: {fileID: 11477438}
   m_Layer: 0
-  m_Name: alien character
-  m_TagString: Untagged
+  m_Name: Alien
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1647,7 +1651,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100116}
   m_LocalRotation: {x: 0, y: .505642295, z: 0, w: .862743258}
-  m_LocalPosition: {x: -1.69186497, y: .205169559, z: -4.21935415}
+  m_LocalPosition: {x: 21.3740005, y: .100000001, z: 15.6999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400114}
@@ -1687,6 +1691,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Mesh: {fileID: 4300002, guid: 9df7021e1cc3dda4181323979d90c1ea, type: 3}
+--- !u!65 &6592914
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100116}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .419562399, y: 2.49428129, z: -.694045484}
+  m_Center: {x: 3.55541706e-05, y: .977281332, z: .0866228044}
 --- !u!95 &9500000
 Animator:
   serializedVersion: 3
@@ -1704,6 +1720,51 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11405122
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 144672f0f9f7c4edc822c15b95fa43f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  speed: 2
+  destinationReached: 0
+--- !u!114 &11426554
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62e548f6402d490ca26d83907d98265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+--- !u!114 &11477438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611885cc4a9544fd8a8b5fc3178d60a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  patrolWalkSpeed: 2
+  delayAtPatrolPointMin: .200000003
+  delayAtPatrolPointMax: .5
+  shouldPatrol: 0
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -20,7 +20,7 @@ public class TileHandler : MonoBehaviour {
     public GameObject TilePrefab;    
 	public GameObject WallPrefab;
 	private GameStateHandler gsh;
-
+	public bool tileMapComplete {get; private set;}
 
     // Use this for initialization
     void Start () {
@@ -29,7 +29,6 @@ public class TileHandler : MonoBehaviour {
 		SpawnTiles ();
 		for (int i = 0; i < 12; i++) {
 			CellularAutomata ();
-		
 		}
 		SetMaterials ();
 		//StartCoroutine (wait (2.2f));
@@ -60,9 +59,31 @@ public class TileHandler : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (KeyCode.U)) {
 			AddResources ();
-			
 		}
 	}
+
+	public Tile GetWalkableTile(){
+
+		int xPos = Random.Range (1, rows-1); 
+		int yPos = Random.Range (1, columns-1); 
+		Tile tile;
+
+		if (!tileMapComplete){
+			return null;
+		}
+
+		while (true){
+			tile = GetTile (xPos,yPos);
+			if (tile.blocked){
+				xPos = Random.Range (1, rows-1); 
+				yPos = Random.Range (1, columns-1); 
+			}
+			else {
+				return tile;
+			}
+		}
+	}
+
 
 	/// <summary>
 	/// One of the first things done, is to instantiate a set of tiles, that will be used for the CA and get materials assigned to them later on. 
@@ -238,7 +259,7 @@ public class TileHandler : MonoBehaviour {
 					TileMap[x,y].SetTileMat(ground3);
 				} else if (tmpMap[x,y] == 4){
 					TileMap[x,y].type = Tile.TileType.liquid;
-					TileMap[x,y].gameObject.layer = 10; // Unwalkable
+					TileMap[x,y].gameObject.layer = 8; // Unwalkable
 					TileMap[x,y].SetTileMat(liquid);
 					TileMap[x,y].blocked = true;
 				}
@@ -294,6 +315,7 @@ public class TileHandler : MonoBehaviour {
 				}
 			}
 		}
+		tileMapComplete = true;
 	}
 
 	/// <summary>

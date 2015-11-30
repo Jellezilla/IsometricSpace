@@ -13,12 +13,10 @@ public class PlayerScript : MonoBehaviour {
 	private float minXValue;
 	private float maxXValue;
 	private float currentHealth;
-	private bool onHealthSpot = false;
+	private bool onAirArea = false;
 	public float chargeDownSpeed = 1f;
 	public float chargeUpSpeed = 10f;
-
-
-
+	
 	// Everytime we access the CurrentHealth property, which changes the health, then the "HandleHealth" method is called, which adjusts the position and color of the health bar
 	private float CurrentHealth {
 		get {return currentHealth;}
@@ -30,9 +28,6 @@ public class PlayerScript : MonoBehaviour {
 	public float maxHealth;
 	public Text healthText;
 	public Image visualHealth;
-	public float coolDown;
-	public float takeDamage;
-	private bool onCD;
 
 	private bool guiShow;
 	public float spaceCash = 200;
@@ -48,21 +43,15 @@ public class PlayerScript : MonoBehaviour {
 		// The x position of the bar at minimum health is the starting position of the bar minus the width of the rectangle (the health bar).
 		minXValue = healthTransform.position.x - healthTransform.rect.width;
 		currentHealth = maxHealth;
-		onCD = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//HandleMovement();
 
-		if(!onHealthSpot && currentHealth > 0) {
+		if(!onAirArea && currentHealth > 0) {
 			CurrentHealth -= (1f * Time.fixedDeltaTime) * chargeDownSpeed;
 		}
-
-//		if(!onCD && currentHealth > 0) {
-//			StartCoroutine(TakeDmg());
-//			CurrentHealth -= 1;
-//		}
 
 		// Weapon Input
 		if (Input.GetMouseButton(0)) {
@@ -97,33 +86,14 @@ public class PlayerScript : MonoBehaviour {
 			GetComponent<AudioSource>().Stop();
 		}
 	}
-	
-//	IEnumerator TakeDmg() {
-//		onCD = true;
-//		yield return new WaitForSeconds (takeDamage);
-//		onCD = false;
-//	}
 
-//	private void HandleMovement() {
-//		float translation = speed * Time.deltaTime;
-//
-//		transform.Translate(new Vector3(Input.GetAxis("Horizontal") * translation, 0, Input.GetAxis("Vertical") * translation));
-//	}
 
 	void OnTriggerStay(Collider other) {
-//		if (other.name == "Damage") {
-//			// If we're not on cooldown and health is greater than "0", then cooldown.
-//			if(!onCD && currentHealth > 0) {
-//				StartCoroutine(TakeDmg());
-//				CurrentHealth -= 1;
-//			}
-//		}
+
 		if (other.name == "Health") {
 			// If we're not on cooldown and health is greater than "0", then cooldown.
-			if(!onCD && currentHealth < maxHealth) {
-				onHealthSpot = true;
-				//StopCoroutine(TakeDmg());
-				//StartCoroutine(CoolDownDmg());
+			if(currentHealth < maxHealth) {
+
 				CurrentHealth += (1 * Time.fixedDeltaTime) * chargeUpSpeed;
 			}
 		}
@@ -134,11 +104,11 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other) {
-		if(other.name == "Shop Area") {
+		if(other.tag == "Shop") {
 			guiShow = false;
 		}
-		if(other.name == "Health") {
-			onHealthSpot = false;
+		if(other.tag == "Air") {
+			onAirArea = false;
 		}
 	}
 
