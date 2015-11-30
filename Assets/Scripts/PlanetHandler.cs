@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlanetHandler : MonoBehaviour {
 
@@ -13,7 +14,9 @@ public class PlanetHandler : MonoBehaviour {
 	public int sunIndex;
 	public int[,] planetMap;
 	TileHandler th; 
-	
+	int enemyCount;
+
+	//List<GameObject> enemies = new List<GameObject>();
 
 	public float GetOxygenLevel() {
 		return oxygenLevel;
@@ -23,17 +26,27 @@ public class PlanetHandler : MonoBehaviour {
 	}
 
 	void Start () {
+		enemyCount = Random.Range (3,6);
 		th = GameObject.Find ("TileHandler").GetComponent<TileHandler> ();
 		confirmation = false;
 		windowRect = new Rect(Screen.width/2-200, Screen.height/2-100, 400,200);
-		
+		SpawnEnemies();
+
+
 //		SpawnPlayer ();
+	}
+
+	void SpawnEnemies(){
+
+		for (int i = 0; i < enemyCount; i++){
+			Tile tile = th.GetWalkableTile();
+			GameObject.Instantiate(Resources.Load("Alien") as GameObject, tile.transform.position, tile.transform.rotation);
+		}
+
 	}
 
 	public void SavePlanet() {
 		planetMap = new int[th.rows, th.columns];
-
-	
 	}
 
 

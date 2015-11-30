@@ -1757,10 +1757,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611885cc4a9544fd8a8b5fc3178d60a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   patrolWalkSpeed: 2
   delayAtPatrolPointMin: .200000003
   delayAtPatrolPointMax: .5
