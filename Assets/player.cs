@@ -6,6 +6,9 @@ public class player : MonoBehaviour {
 
 	public Animator anim;
 
+	private float inputH;
+	private float inputV;
+
 	void Start () 
 	{
 		anim = GetComponent < Animator> ();
@@ -26,5 +29,13 @@ public class player : MonoBehaviour {
 		{
 			anim.Play ("flying_back_death",-1,0f);
 		}
+
+		inputH = Input.GetAxis ("Horizontal");
+		inputV = Input.GetAxis ("Vertical");
+
+		anim.SetFloat ("inputH", inputH);
+		anim.SetFloat ("inputV", inputV);
+
+
 	}
 }
