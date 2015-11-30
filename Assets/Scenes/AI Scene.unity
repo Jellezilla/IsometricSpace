@@ -157,7 +157,7 @@ Transform:
   m_LocalScale: {x: 3.20000005, y: 1, z: 3.20000005}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
 --- !u!1 &134672452
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,6 +482,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1264737775}
+  destinationReached: 0
+  start: 0
 --- !u!23 &483173826
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -569,7 +571,7 @@ Transform:
   - {fileID: 1405632672}
   - {fileID: 448141190}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
 --- !u!1 &621779097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,7 +1307,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!1 &1059383846
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,7 +1546,7 @@ Transform:
   m_LocalScale: {x: .800000012, y: .800000012, z: .800000012}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!1 &1405632671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,6 +1604,7 @@ MonoBehaviour:
   rows: 32
   columns: 32
   TilePrefab: {fileID: 116990, guid: fdc3542e20aed234dbb823db7c61b4e2, type: 2}
+  WallPrefab: {fileID: 0}
 --- !u!4 &1411415073
 Transform:
   m_ObjectHideFlags: 0
@@ -1614,7 +1617,7 @@ Transform:
   m_Children:
   - {fileID: 1257989294}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &1416493705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,6 +1739,15 @@ MonoBehaviour:
   patrolWalkSpeed: 11
   delayAtPatrolPointMin: .100000001
   delayAtPatrolPointMax: .400000006
+  fsm: {fileID: 0}
+  patrolBehaviorState: 0
+  patrolPointIndex: 0
+  timeToWaitBeforeNextMove: 0
+  unit: {fileID: 0}
+  directionVector: {x: 0, y: 0, z: 0}
+  destination: {fileID: 0}
+  pathRequested: 0
+  shouldPatrol: 0
 --- !u!114 &1454536124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1748,6 +1760,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1264737775}
+  destinationReached: 0
+  start: 0
 --- !u!23 &1454536125
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1831,7 +1845,7 @@ Transform:
   m_Children:
   - {fileID: 1416493706}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1 &1530805007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1967,6 +1981,45 @@ TrailRenderer:
       rgba: 16777215
   m_MinVertexDistance: .100000001
   m_Autodestruct: 0
+--- !u!1 &1658071231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1658071233}
+  - 114: {fileID: 1658071232}
+  m_Layer: 0
+  m_Name: GameStateHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1658071232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1658071231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81035ee5d52ad424a89ede6c52ad84d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1658071233
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1658071231}
+  m_LocalRotation: {x: 0, y: .382683456, z: 0, w: .923879504}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!1 &1692121139
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,7 +2192,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &1811554353
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,10 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameStateHandler : MonoBehaviour {
 
 	private Texture2D GameLogo;
 	private Material currentMat;
+
+	public enum PlanetType { Warm, Habitable, Cold };
+	private PlanetType _planetType;
+
+	public void SetCurrentPlanetType(PlanetType type) {
+		_planetType = type;
+	}
+	public PlanetType GetCurrentPlanetType() {
+		return _planetType;
+	}
 
 	public Material GetCurrentMat() {
 		return currentMat;
@@ -20,15 +30,7 @@ public class GameStateHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown (KeyCode.G)) {
-			if(Application.loadedLevel == 1)
-			{
-				StartCoroutine(ChangeLevel(2));
-
-			} else {
-				StartCoroutine(ChangeLevel(1));
-			}
-		}
+	
 	}
 	IEnumerator ChangeLevel(int level) {
 		float fadeTime = GameObject.Find ("SceneFader").GetComponent<Fading>().BegindFade(1);
@@ -47,5 +49,6 @@ public class GameStateHandler : MonoBehaviour {
 				Debug.Log ("you ain't got no motherfucking options bitch!");	
 
 		}
+
 	}
 }

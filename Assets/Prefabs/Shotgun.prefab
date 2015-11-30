@@ -95,6 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+<<<<<<< HEAD
   m_IsActive: 1
 --- !u!1 &132352
 GameObject:
@@ -115,6 +116,10 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 0
 --- !u!1 &132558
+=======
+  m_IsActive: 0
+--- !u!1 &151180
+>>>>>>> origin/master
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -715,7 +720,35 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
+<<<<<<< HEAD
     m_Modifications: []
+=======
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: fireMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 11e07f90b7fd0422cb7b7dc264e44c35, type: 3}
+    - target: {fileID: 0}
+      propertyPath: flashTime
+      value: .0500000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: gunLogo
+      value: 
+      objectReference: {fileID: 2800000, guid: 0aa38fa1f103719479c12a6b0bb10703, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+>>>>>>> origin/master
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 112812}
