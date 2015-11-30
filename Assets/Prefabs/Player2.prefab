@@ -50,7 +50,7 @@ GameObject:
   - 114: {fileID: 11469000}
   - 114: {fileID: 11432452}
   m_Layer: 0
-  m_Name: Player 2
+  m_Name: Player2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,6 +208,7 @@ MonoBehaviour:
   - {fileID: 11478686, guid: 37bed97b208434511817d2736e97f116, type: 2}
   - {fileID: 11470542, guid: 42459ff30009b414ca4ac858c50b1387, type: 2}
   - {fileID: 0}
+  equippedGun: {fileID: 0}
 --- !u!114 &11469000
 MonoBehaviour:
   m_ObjectHideFlags: 1

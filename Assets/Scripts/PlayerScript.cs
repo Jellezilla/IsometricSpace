@@ -32,8 +32,6 @@ public class PlayerScript : MonoBehaviour {
 	private bool guiShow;
 	public float spaceCash = 200;
 
-	GunController gunController;
-
 	//PlayerController otherPlayerScript;
 
 	// Use this for initialization
@@ -46,8 +44,6 @@ public class PlayerScript : MonoBehaviour {
 		minXValue = healthTransform.position.x - healthTransform.rect.width;
 		currentHealth = maxHealth;
 		onCD = false;
-
-		gunController = GetComponent<GunController>();
 	}
 	
 	// Update is called once per frame
@@ -65,12 +61,13 @@ public class PlayerScript : MonoBehaviour {
 //		}
 
 		// Weapon Input
-		if (Input.GetMouseButton(0) || Input.GetKeyDown("space")) {
-			gunController.OnTriggerHold();
+		if (Input.GetMouseButton(0)) {
+			GetComponent<GunController>().OnTriggerHold();
+			//gunController.OnTriggerHold();
 		}
-		
+
 		if (Input.GetMouseButtonUp(0)) {
-			gunController.OnTriggerRelease();
+			GetComponent<GunController>().OnTriggerRelease();
 		}
 	}
 

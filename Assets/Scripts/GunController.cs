@@ -26,14 +26,17 @@ public class GunController : MonoBehaviour {
 
 	//public Rect guiAreaRect = new Rect(0,0,0,0);
 
-	Gun equippedGun;
+	public Gun equippedGun;
 
 	public void BuyRevolver() {
 		purchasedGuns.CopyTo(0, guns, 0, 1);
+		EquipGun(0);
+
 	}
 
 	public void BuyRifle() {
 		purchasedGuns.CopyTo(1, guns, 1, 1);
+		EquipGun(1);
 	}
 
 	public void BuyShotgun() {
@@ -43,7 +46,7 @@ public class GunController : MonoBehaviour {
 	void Start() {
 		//purchasedGuns.CopyTo(0, guns, 0, 1);
 		/*if (startingGun != null) {*/
-			EquipGun(/*startingGun*/ 0);
+			//EquipGun(/*startingGun*/ 0);
 		/*}*/
 
 		//gui = GameObject.FindGameObjectWithTag("GUI").GetComponent<AmmoGUI>();
@@ -53,7 +56,7 @@ public class GunController : MonoBehaviour {
 	void Update() {
 
 		for (int i = 0; i < guns.Length; i++) {
-			if (Input.GetKeyDown((i+1) + "") /*|| Input.GetKeyDown("{" + (i+1) + "}")*/) {
+			if (Input.GetKeyDown((i+1).ToString()) /*|| Input.GetKeyDown("{" + (i+1) + "}")*/) {
 				EquipGun(i);
 				break;
 			}
@@ -91,6 +94,7 @@ public class GunController : MonoBehaviour {
 	public void OnTriggerHold() {
 		// Checking if there's a weapon currently equipped.
 		if (equippedGun != null) {
+			//print (equippedGun.name);
 			equippedGun.OnTriggerHold();
 		}
 	}

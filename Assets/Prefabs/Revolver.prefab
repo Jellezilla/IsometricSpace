@@ -584,8 +584,14 @@ MonoBehaviour:
   burstCount: 3
   shell: {fileID: 489796, guid: 4ac568c0dbd484a539a0bae7688d8acd, type: 2}
   shellEjection: {fileID: 443060}
-  totalAmmo: 40
-  ammoPerMag: 10
+  kickMinMax: {x: .0500000007, y: .200000003}
+  recoilAngleMinMax: {x: 3, y: 5}
+  recoilMoveSettleTime: .100000001
+  recoilRotationSettleTime: .100000001
+  currentAmmo: 90
+  currentClip: 30
+  maxAmmo: 30
+  maxClip: 30
 --- !u!212 &21233940
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -663,6 +669,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: maxAmmo
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: currentAmmo
       value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []

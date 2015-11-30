@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
 		Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"),0,Input.GetAxisRaw("Vertical"));
 		Vector3 motion = input;
 		motion *= (Mathf.Abs(input.x) == 1 && Mathf.Abs(input.z) == 1)?.7f:1;
-		motion *= (Input.GetButton("Run"))?runSpeed:walkSpeed;
+		//motion *= (Input.GetButton("Run"))?runSpeed:walkSpeed;
 		motion += Vector3.up * -8;
 		
 		controller.Move(motion * Time.deltaTime);
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
 		
 		Vector3 motion = input;
 		motion *= (Mathf.Abs(input.x) == 1 && Mathf.Abs(input.z) == 1)?.7f:1;
-		motion *= (Input.GetButton("Run"))?runSpeed:walkSpeed;
+		//motion *= (Input.GetButton("Run"))?runSpeed:walkSpeed;
 		motion += Vector3.up * -8;
 		
 		controller.Move(motion * Time.deltaTime);
