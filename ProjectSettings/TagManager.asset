@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Tile
+  - God
+  - Planet
+  - Target
+  - Seeker
+  - Mission
+  - MissionTarget
+  - Enemy
+  - GUI
+  - Xhair
   layers:
   - Default
   - TransparentFX
@@ -13,12 +23,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Water
+  - UI
+  - Unwalkable
+  - Grass
+  - Sand
+  - Mud
   - 
   - 
   - 
