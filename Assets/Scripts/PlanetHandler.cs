@@ -7,11 +7,36 @@ public class PlanetHandler : MonoBehaviour {
 	private bool confirmation;
 	Rect windowRect;
 	// Use this for initialization
+	private float oxygenLevel;
+	GameStateHandler.PlanetType type;
+	public int planetIndex;
+	public int sunIndex;
+	public int[,] planetMap;
+	TileHandler th; 
+	
+
+	public float GetOxygenLevel() {
+		return oxygenLevel;
+	}
+	public void SetOxygenLevel(float adj) {
+		oxygenLevel += adj;
+	}
+
 	void Start () {
+		th = GameObject.Find ("TileHandler").GetComponent<TileHandler> ();
 		confirmation = false;
 		windowRect = new Rect(Screen.width/2-200, Screen.height/2-100, 400,200);
+		
+//		SpawnPlayer ();
 	}
+
+	public void SavePlanet() {
+		planetMap = new int[th.rows, th.columns];
+
 	
+	}
+
+
 	// Update is called once per frame
 	void Update () {
 	

@@ -11,7 +11,6 @@ GameObject:
   - 33: {fileID: 3350950}
   - 136: {fileID: 13646814}
   - 23: {fileID: 2356428}
-  - 114: {fileID: 11498866}
   - 114: {fileID: 11428620}
   - 114: {fileID: 11408144}
   m_Layer: 0
@@ -51,7 +50,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -95,20 +96,6 @@ MonoBehaviour:
   delayAtPatrolPointMin: .200000003
   delayAtPatrolPointMax: .5
   shouldPatrol: 0
---- !u!114 &11498866
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7a39651cd0d647dbab31ef9b3e50f05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  destinationReached: 0
-  start: 0
 --- !u!136 &13646814
 CapsuleCollider:
   m_ObjectHideFlags: 1

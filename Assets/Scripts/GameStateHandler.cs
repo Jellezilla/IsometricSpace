@@ -6,8 +6,9 @@ public class GameStateHandler : MonoBehaviour {
 	private Texture2D GameLogo;
 	private Material currentMat;
 
+
 	public enum PlanetType { Warm, Habitable, Cold };
-	private PlanetType _planetType;
+		private PlanetType _planetType;
 
 	public void SetCurrentPlanetType(PlanetType type) {
 		_planetType = type;
@@ -22,6 +23,7 @@ public class GameStateHandler : MonoBehaviour {
 	public void SetCurrentMat(Material mat) {
 		currentMat = mat;
 	}
+
 	// Use this for initialization
 	void Start () {
 		DontDestroyOnLoad (transform);

@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 using System.Linq;
@@ -6,7 +7,8 @@ using System.Collections.Generic;
 
 public class TileHandler : MonoBehaviour {
 
-    public int rows, columns;
+    public int rows, columns; 
+
     private int a, b;
     public Tile[,] TileMap;
 	private int[,] map;
@@ -24,20 +26,28 @@ public class TileHandler : MonoBehaviour {
     void Start () {
 		gsh = GameObject.Find ("GameStateHandler").GetComponent<GameStateHandler> ();
 		Debug.Log (gsh.GetCurrentPlanetType ().ToString ());
-		SpawnTiles();
-		for (int i = 0; i < 11; i++) {
-			CellularAutomata();
+		SpawnTiles ();
+		for (int i = 0; i < 12; i++) {
+			CellularAutomata ();
 		
 		}
 		SetMaterials ();
 		//StartCoroutine (wait (2.2f));
 		SetColliderOnBlockedTiles ();
+		for (int j = 0; j < 4; j++) {
+			AddResources ();
+		}
+	
+	
 		//TilePrefab.transform.GetComponent<Tile> ().type = Tile.TileType.unassigned;
 		//SpawnTileGroup ();
 		//SpawnMap (0);
 	}
 
-	// Update is called once per frame
+
+	/// <summary>
+	/// Handles input. Most of these are present for test purposes. Should be deleted in the final version. 
+	/// </summary>
 	void Update () {
 
 		if (Input.GetKeyDown (KeyCode.R)) {
@@ -54,6 +64,9 @@ public class TileHandler : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// One of the first things done, is to instantiate a set of tiles, that will be used for the CA and get materials assigned to them later on. 
+	/// </summary>
     void SpawnTiles()
     {
         TileMap = new Tile[rows, columns];
@@ -79,13 +92,15 @@ public class TileHandler : MonoBehaviour {
         
 		}
 
-				CreateIntMap();
-		// SetRandomTileMats();
+		CreateIntMap();
 		AddWalls ();
-		//CellularAutomata ();
     }
 
 	#region integar cell map
+
+	/// <summary>
+	/// Creates an integer map that is used to store and define the type of each tile. 
+	/// </summary>
 	void CreateIntMap() {
 		map = new int[rows,columns];
 		tmpMap = new int[rows,columns];
@@ -98,6 +113,11 @@ public class TileHandler : MonoBehaviour {
 			}
 		}
 	}
+
+
+	/// <summary>
+	/// Get a list of tiles adjacent to the one tile the method is called with. This is done on the int map level instead of being tile based. 
+	/// </summary>
 	List<int> GetIntAdjacent(int x, int y)
 	{
 		List<int> tmp = new List<int> ();
@@ -131,7 +151,7 @@ public class TileHandler : MonoBehaviour {
 	}
 	// reemake the get neighbour methods to int map
 	void CellularAutomata() {
-		Debug.Log ("cell!");
+
 		for (int x = 0; x < rows; x++) {
 			for (int y = 0; y < columns; y++) {
 				List<int> tmpList = GetIntAdjacent (x,y);
@@ -141,7 +161,6 @@ public class TileHandler : MonoBehaviour {
 				            orderby grp.Count() descending
 				            select grp.Key).First();
 
-//				UnityEngine.Debug.Log ("most: "+most);
 				tmpMap[x,y] = most;
 	
 			}
@@ -151,15 +170,13 @@ public class TileHandler : MonoBehaviour {
 			map[i,j] = tmpMap[i,j];
 			}
 		}
-	}
-	// apply cellular automata to it. 
-	// set tiles property to int map and set mats. 
-	// no need for tmp map ***
-
+	} 
 	#endregion
 
 
-
+	/// <summary>
+	/// SetMaterials is called after the cellular automata iterations are performed. Then this method is called, which updates the material of each tile according to their number/type.
+	/// </summary>
 	void SetMaterials() {
 		// if (planet.cold || planet.habitable || planet.warm) 
 		// set materials for ground1, ground2, ground3, liquid and walls (maybe even gas)
@@ -167,7 +184,8 @@ public class TileHandler : MonoBehaviour {
 		Material ground2 = new Material(Resources.Load ("Materials/smoke", typeof(Material)) as Material);
 		Material ground3 = new Material(Resources.Load ("Materials/smoke", typeof(Material)) as Material);
 		Material liquid  = new Material(Resources.Load ("Materials/smoke", typeof(Material)) as Material);
- 		
+		wallMat 		 = new Material(Resources.Load ("Materials/smoke", typeof(Material)) as Material);
+
 		switch (gsh.GetCurrentPlanetType()) {
 			case GameStateHandler.PlanetType.Cold:
 				ground1 =	new Material(Resources.Load ("Materials/TileMats/cold_ground1", typeof(Material)) as Material);
@@ -193,6 +211,17 @@ public class TileHandler : MonoBehaviour {
 
 		
 		}
+
+
+
+		// Here we loop through all tiles their type, layer and material according to the integer map[x,y]
+		// 1 = ground1
+		// 2 = ground2 
+		// 3 = ground3
+		// 4 = liquid
+		// 5 = gas
+		// 6 = crystal
+		// 7 = structure
 		for(int x = 0; x < rows; x++) {
 			for(int y = 0; y < columns; y++) {
 				if(tmpMap[x,y] == 1) {
@@ -223,34 +252,55 @@ public class TileHandler : MonoBehaviour {
 			// set materials for ground1, ground2, ground3, liquid and walls (maybe even gas)
 		}
  	}
+
+	/// <summary>
+	/// This method spawns gas and crystals on tiles randomly throughout the planet. 
+	/// </summary>
 	private void AddResources() {
 		for (int x = 0; x < rows; x++) {
 			for (int y = 0; y < columns; y++) {
 				if(!TileMap[x,y].blocked) {
+					string str = "";
 					int rand = Random.Range (1,1025);
 					if(rand == 1) {
-						Instantiate(Resources.Load ("RedGasTile"),TileMap[x,y].transform.position,Quaternion.identity);
-						Debug.Log ("red gas!");
+						if(gsh.GetCurrentPlanetType() == GameStateHandler.PlanetType.Cold) {
+							str = (Random.Range (1,101) > 50) ? "GasTileBlue" : "CrystalBlue";
+						} else if (gsh.GetCurrentPlanetType() == GameStateHandler.PlanetType.Habitable) {
+							str = (Random.Range (1,101) > 50) ? "GasTileGreen" : "CrystalGreen";
+						} else if (gsh.GetCurrentPlanetType() == GameStateHandler.PlanetType.Warm) {
+							str = (Random.Range (1,101) > 50) ? "GasTileRed" : "CrystalRed";
+						}
+						Instantiate(Resources.Load (str),TileMap[x,y].transform.position,Quaternion.identity);
+						if(str.Contains("GasTile")) {
+							map[x,y] = 5;
+						} else if (str.Contains ("Crystal")){
+							map[x,y] = 6;
+						}
 					}
 				}
 			}
 		}
-
-
-
 	}
+
+	/// <summary>
+	/// This methods finds the outlining tiles of a blocked area (checks if a blocked tile has a non-blocked neighbour tile) and adjust the box collider on the y axis so it becomes unwalkable for the player. 
+	/// </summary>
 	private void SetColliderOnBlockedTiles (){
 		for(int x = 0; x < rows; x++) {
 			for(int y = 0; y < columns; y++) {
 				if(TileMap[x,y].blocked && isNeighbourWalkable(x,y)) {
 					TileMap[x,y].GetComponent<BoxCollider>().size = new Vector3(1.0f, 15.0f, 1.0f);
-					Debug.Log ("fede!");
+
 				}
 			}
 		}
 	}
+
+	/// <summary>
+	/// Helper methods used by the method that adds colliders to the outer tiles of a blocked blop. 
+	/// </summary>
 	public bool isNeighbourWalkable(int x, int y) {
-		List<Tile> tmpList = new List<Tile> ();
+//		List<Tile> tmpList = new List<Tile> ();
 		try {
 			if(!TileMap[x-1,y].blocked ||  !TileMap[x,y-1].blocked || !TileMap[x+1,y].blocked || !TileMap[x,y+1].blocked )
 			{
@@ -264,6 +314,10 @@ public class TileHandler : MonoBehaviour {
 
 	}
 	#region helpers & software rot
+
+	/// <summary>
+	/// This method adds the walls around the planet level.
+	/// </summary>
  	private void AddWalls() {
 
 
@@ -310,15 +364,25 @@ public class TileHandler : MonoBehaviour {
 
 	}	
 
+	/// <summary>
+	/// Help method for Getting a Tile. Returns a given tile specified by x and y coordinate. 
+	/// </summary>
     public Tile GetTile(int x, int y)
     {
         return TileMap[x, y];
     }
+
+	/// <summary>
+	/// Help method for getting a list og adjacent tiles. 
+	/// </summary>
     public List<Tile> GetAdjacent(Tile tile)
     {
         return GetAdjacent((int)tile.transform.position.x, (int)tile.transform.position.z);
     }
 
+	/// <summary>
+	/// Method overload for the GetAdjacent method above. This overload can be called with a x and y coordinate instead of the tile reference. 
+	/// </summary>
     public List<Tile> GetAdjacent(int x, int y)
     {
         List<Tile> tmpList = new List<Tile>();
@@ -349,9 +413,17 @@ public class TileHandler : MonoBehaviour {
         //}
         return tmpList;
     }
+
+	/// <summary>
+	/// This method basically does the same as the GetAdjacent method(s) above, but it does so only with the direct neighbours and not the corners of the kernel as the ones above does. 
+	/// </summary>
 	public List<Tile> GetNeighbours(Tile tile) {
 		return GetNeighbours((int)tile.transform.position.x, (int)tile.transform.position.z);
 	}
+	/// <summary>
+	/// This method basically does the same as the GetAdjacent method(s) above, but it does so only with the direct neighbours and not the corners of the kernel as the ones above does. 
+	/// This is an overload of the GetNeighbouts method above, where you can call it with coordinates instead of a tile reference. 
+	/// </summary>
 	public List<Tile> GetNeighbours(int x, int y) {
 		List<Tile> tmpList = new List<Tile> ();
 		try {
@@ -364,6 +436,12 @@ public class TileHandler : MonoBehaviour {
 		}
 		return tmpList;
 	}
+
+
+	/// <summary>
+	/// Wait the specified delay.
+	/// </summary>
+	/// <param name="delay">Delay.</param>
 	IEnumerator wait(float delay)
 	{
 		yield return new WaitForSeconds (delay);
