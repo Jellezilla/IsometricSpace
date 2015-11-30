@@ -563,6 +563,14 @@ MonoBehaviour:
   burstCount: 3
   shell: {fileID: 489796, guid: 4ac568c0dbd484a539a0bae7688d8acd, type: 2}
   shellEjection: {fileID: 486468}
+  kickMinMax: {x: .0500000007, y: .200000003}
+  recoilAngleMinMax: {x: 3, y: 5}
+  recoilMoveSettleTime: .100000001
+  recoilRotationSettleTime: .100000001
+  currentAmmo: 0
+  currentClip: 0
+  maxAmmo: 0
+  maxClip: 0
 --- !u!114 &11496666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -683,6 +691,10 @@ Prefab:
       propertyPath: gunLogo
       value: 
       objectReference: {fileID: 2800000, guid: e6a42e02433a34523be3bf30351390e8, type: 3}
+    - target: {fileID: 0}
+      propertyPath: recoilRotationSettleTime
+      value: .100000001
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 131608}

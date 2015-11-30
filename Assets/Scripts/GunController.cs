@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class GunController : MonoBehaviour {
@@ -11,6 +12,16 @@ public class GunController : MonoBehaviour {
 	public Gun[] guns;
 	//public Gun[] purchasedGuns;
 	public List<Gun> purchasedGuns = null;
+
+	//private bool reloading;
+
+	//private AmmoGUI gui;
+
+//	public float currentAmmo;
+//	public float currentClip;
+//	public float maxAmmo;
+//	public float maxClip;
+
 
 
 	//public Rect guiAreaRect = new Rect(0,0,0,0);
@@ -34,6 +45,8 @@ public class GunController : MonoBehaviour {
 		/*if (startingGun != null) {*/
 			EquipGun(/*startingGun*/ 0);
 		/*}*/
+
+		//gui = GameObject.FindGameObjectWithTag("GUI").GetComponent<AmmoGUI>();
 	}
 
 
@@ -45,6 +58,18 @@ public class GunController : MonoBehaviour {
 				break;
 			}
 		}
+
+//		if(Input.GetKeyDown(KeyCode.R)) {
+//			if (equippedGun.Reload()) {
+//				reloading = true;
+//			}
+//		}
+//
+//		if (reloading) {
+//			equippedGun.FinishReload();
+//			reloading = false;
+//		}
+
 	}
 
 	public void EquipGun(int i /*Gun gunToEquip*/) {
@@ -57,7 +82,10 @@ public class GunController : MonoBehaviour {
 
 		// Making the gun a child of "Weapon Hold", so it moves with the player.
 		equippedGun.transform.parent = weaponHold;
+
+		//equippedGun.gui = gui;
 	}
+
 
 
 	public void OnTriggerHold() {

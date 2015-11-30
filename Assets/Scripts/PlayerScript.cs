@@ -54,8 +54,13 @@ public class PlayerScript : MonoBehaviour {
 	void Update () {
 		//HandleMovement();
 
+		if(!onCD && currentHealth > 0) {
+			StartCoroutine(CoolDownDmg());
+			CurrentHealth -= 1;
+		}
+
 //		if(!onCD && currentHealth > 0) {
-//			StartCoroutine(CoolDownDmg());
+//			StartCoroutine(TakeDmg());
 //			CurrentHealth -= 1;
 //		}
 
@@ -98,11 +103,11 @@ public class PlayerScript : MonoBehaviour {
 		onCD = false;
 	}
 
-	IEnumerator TakeDmg() {
-		onCD = true;
-		yield return new WaitForSeconds (takeDamage);
-		onCD = false;
-	}
+//	IEnumerator TakeDmg() {
+//		onCD = true;
+//		yield return new WaitForSeconds (takeDamage);
+//		onCD = false;
+//	}
 
 //	private void HandleMovement() {
 //		float translation = speed * Time.deltaTime;
@@ -111,16 +116,17 @@ public class PlayerScript : MonoBehaviour {
 //	}
 
 	void OnTriggerStay(Collider other) {
-		if (other.name == "Damage") {
-			// If we're not on cooldown and health is greater than "0", then cooldown.
-			if(!onCD && currentHealth > 0) {
-				StartCoroutine(TakeDmg());
-				CurrentHealth -= 1;
-			}
-		}
+//		if (other.name == "Damage") {
+//			// If we're not on cooldown and health is greater than "0", then cooldown.
+//			if(!onCD && currentHealth > 0) {
+//				StartCoroutine(TakeDmg());
+//				CurrentHealth -= 1;
+//			}
+//		}
 		if (other.name == "Health") {
 			// If we're not on cooldown and health is greater than "0", then cooldown.
 			if(!onCD && currentHealth < maxHealth) {
+				//StopCoroutine(TakeDmg());
 				StartCoroutine(CoolDownDmg());
 				CurrentHealth += 1;
 			}

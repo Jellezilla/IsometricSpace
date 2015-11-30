@@ -9,6 +9,7 @@ TagManager:
   - Planet
   - Target
   - Seeker
+  - GUI
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Unwalkable
   - Grass
   - Swamp
-  - 
+  - GUI
   - 
   - 
   - 
