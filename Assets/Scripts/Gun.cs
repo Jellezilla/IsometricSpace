@@ -53,13 +53,32 @@ public class Gun : MonoBehaviour {
 		muzzleflash = GetComponent<MuzzleFlash>();
 		ammoVariables = GameObject.FindWithTag ("Player").GetComponent<AmmunitionVariables>();
 		shotsRemainingInBurst = burstCount;
-		Restock();
+		//Restock();
 
 //		currentAmmoInMag = ammoPerMag;
 
 //		if (gui) {
 //			gui.SetAmmoInfo(totalAmmo, currentAmmoInMag);
 //		}
+
+		if(gameObject.tag == "Revolver") {
+			currentAmmo = ammoVariables.revolverCurrentAmmo;
+			currentClip = ammoVariables.revolverCurrentClip;
+			maxAmmo = ammoVariables.revolverMaxAmmo;
+			maxClip = ammoVariables.revolverMaxClip;
+		} else if(gameObject.tag == "Rifle") {
+			currentAmmo = ammoVariables.rifleCurrentAmmo;
+			currentClip = ammoVariables.rifleCurrentClip;
+			maxAmmo = ammoVariables.rifleMaxAmmo;
+			maxClip = ammoVariables.rifleMaxClip;
+		} else if(gameObject.tag == "Shotgun") {
+			currentAmmo = ammoVariables.shotgunCurrentAmmo;
+			currentClip = ammoVariables.shotgunCurrentClip;
+			maxAmmo = ammoVariables.shotgunMaxAmmo;
+			maxClip = ammoVariables.shotgunMaxClip;
+		}  
+	
+
 	}
 
 	void Update() {
@@ -83,9 +102,29 @@ public class Gun : MonoBehaviour {
 	}
 
 
+	//void SetCurrentGunType() {
+//		if(gameObject.tag == "Revolver") {
+//			currentAmmo = ammoVariables.revolverCurrentAmmo;
+//			currentClip = ammoVariables.revolverCurrentClip;
+//			maxAmmo = ammoVariables.revolverMaxAmmo;
+//			maxClip = ammoVariables.revolverMaxClip;
+//		} else if(gameObject.tag == "Rifle") {
+//			currentAmmo = ammoVariables.rifleCurrentAmmo;
+//			currentClip = ammoVariables.rifleCurrentClip;
+//			maxAmmo = ammoVariables.rifleMaxAmmo;
+//			maxClip = ammoVariables.rifleMaxClip;
+//		} else if(gameObject.tag == "Shotgun") {
+//			currentAmmo = ammoVariables.shotgunCurrentAmmo;
+//			currentClip = ammoVariables.shotgunCurrentClip;
+//			maxAmmo = ammoVariables.shotgunMaxAmmo;
+//			maxClip = ammoVariables.shotgunMaxClip;
+//		}  
+//	}
+
+
 	void Shoot() {
 
-
+		//SetCurrentGunType();
 
 		if (Time.time > nextShotTime && currentClip != 0) {
 
@@ -135,27 +174,26 @@ public class Gun : MonoBehaviour {
 			//recoilAngle += Random.Range(recoilAngleMinMax.x, recoilAngleMinMax.y);
 			//recoilAngle = Mathf.Clamp(recoilAngle, 0, 30);
 
-			//currentAmmoInMag -= 1;
-
-			if (gameObject.tag == "Revolver") {
-				ammoVariables.revolverCurrentClip -= 1;
-				ammoVariables.revolverCurrentAmmo -= 1;
-				Debug.Log("revolverCurrentClip: " + ammoVariables.revolverCurrentClip);
-			}
-			else if (gameObject.tag == "Rifle") {
-				ammoVariables.rifleCurrentClip -= 1;
-				ammoVariables.rifleCurrentAmmo -= 1;
-				Debug.Log("rifleCurrentClip: " + ammoVariables.rifleCurrentClip);
-			}
-			else if (gameObject.tag == "Shotgun") {
-				ammoVariables.shotgunCurrentClip -= 1;
-				ammoVariables.shotgunCurrentAmmo -= 1;
-				Debug.Log("shotgunCurrentClip: " + ammoVariables.shotgunCurrentClip);
-			}
 
 		
-//			currentClip -= 1;
-//			currentAmmo -= 1;
+			currentClip -= 1;
+			currentAmmo -= 1;
+
+				if (gameObject.tag == "Revolver") {
+					ammoVariables.revolverCurrentClip = currentClip;
+					ammoVariables.revolverCurrentAmmo = currentAmmo;
+					//Debug.Log("revolverCurrentClip: " + ammoVariables.revolverCurrentClip);
+				}
+				else if (gameObject.tag == "Rifle") {
+					ammoVariables.rifleCurrentClip = currentClip;
+					ammoVariables.rifleCurrentAmmo = currentAmmo;
+					//Debug.Log("rifleCurrentClip: " + ammoVariables.rifleCurrentClip);
+				}
+				else if (gameObject.tag == "Shotgun") {
+					ammoVariables.shotgunCurrentClip = currentClip;
+					ammoVariables.shotgunCurrentAmmo = currentAmmo;
+					//Debug.Log("shotgunCurrentClip: " + ammoVariables.shotgunCurrentClip);
+				}
 
 			Debug.Log(currentClip);
 			Debug.Log(currentAmmo);
@@ -163,8 +201,11 @@ public class Gun : MonoBehaviour {
 		
 	}
 
+
 	void Reload() {      
-		
+
+		//SetCurrentGunType();
+
 		StartCoroutine(ReloadWait());
 
 		if (currentClip < maxClip)  // is clip full?
@@ -196,16 +237,18 @@ public class Gun : MonoBehaviour {
 	}
 
 
-	public void Restock()
-	{
-		currentClip = 30;
-		maxClip = 30;
-		currentAmmo = 90;
-		maxAmmo = maxClip + currentAmmo;
-	}
+//	public void Restock()
+//	{
+//		//SetCurrentGunType();
+//		currentClip = 30;
+//		maxClip = 30;
+//		currentAmmo = 90;
+//		maxAmmo = maxClip + currentAmmo;
+//	}
 	
 	IEnumerator ReloadWait()
 	{
+		//SetCurrentGunType();
 		Debug.Log("Reload Now");
 		yield return new WaitForSeconds(3.0F); 
 		currentAmmo += currentClip; // add the remaining bullets in the clip to the total amount of bullets.
@@ -213,31 +256,7 @@ public class Gun : MonoBehaviour {
 		currentAmmo -= maxClip;     // subtract the bullets just put in the clip, from the total amount of bullets.
 	}
 
-	//************************************************ From Tutorial ************************************************
 
-//	public bool Reload() {
-//		// If we have ammo left and our current mag isn't full, then allow the reload. Otherwise don't.
-//		if (totalAmmo != 0 && currentAmmoInMag != ammoPerMag) {
-//			reloading = true;
-//			return true;
-//		}
-//			return false;
-//	}
-//
-//	public void FinishReload() {
-//		reloading = false;
-//		currentAmmoInMag = ammoPerMag;
-//		totalAmmo -= ammoPerMag;
-//
-//		if (totalAmmo < 0) {
-//			currentAmmoInMag += totalAmmo;
-//			totalAmmo = 0; 
-//		}
-//
-//		if (gui) {
-//			gui.SetAmmoInfo(totalAmmo, currentAmmoInMag);
-//		}
-//	}
 
 
 	public void OnTriggerHold() {

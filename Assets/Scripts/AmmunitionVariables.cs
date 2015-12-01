@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AmmoVariables : MonoBehaviour {
+public class AmmunitionVariables : MonoBehaviour {
 
 	public float revolverCurrentAmmo;
 	public float revolverCurrentClip;
@@ -17,4 +17,5 @@ public class AmmoVariables : MonoBehaviour {
 	public float shotgunCurrentClip;
 	public float shotgunMaxAmmo;
 	public float shotgunMaxClip;
+
 }
