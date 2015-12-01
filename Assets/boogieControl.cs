@@ -17,6 +17,11 @@ public class boogieControl : MonoBehaviour {
 		{
 			anim.Play("boogie",-1,0f);
 		}
+
+		if(Input.GetMouseButtonDown(0))
+		{
+			anim.Play ("shoot_rifle_run",-1,0f);
+		}
 			
 	}
 }
