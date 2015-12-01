@@ -27,7 +27,7 @@ GameObject:
   - 114: {fileID: 11423022}
   - 82: {fileID: 8200582}
   m_Layer: 0
-  m_Name: Shotgun2
+  m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour {
 		controller.Move(motion * Time.deltaTime);
 	}
 
-	void ControlWASD() {
+	/*void ControlWASD() {
 		Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"),0,Input.GetAxisRaw("Vertical"));
 		
 		if (input != Vector3.zero) {
@@ -81,6 +81,6 @@ public class PlayerController : MonoBehaviour {
 		motion += Vector3.up * -8;
 		
 		controller.Move(motion * Time.deltaTime);
-	}
+	}*/
 	
 }
