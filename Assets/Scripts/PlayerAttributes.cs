@@ -32,7 +32,7 @@ public class PlayerAttributes : MonoBehaviour {
 	}
 
 	void Shoot(){
-		print ("shoot");
+//		print ("shoot");
 		RaycastHit hit;
 		Vector3 direction = GetComponent<Rigidbody>().velocity.normalized;
 		Debug.DrawRay(transform.position, direction*100, Color.blue);
@@ -42,7 +42,7 @@ public class PlayerAttributes : MonoBehaviour {
 				int rand = Random.Range (1,100);
 				if (rand <= criticalChange){
 					finalDamage *= criticalMultiplier;
-					print("CRITICAL HIT");
+					//print("CRITICAL HIT");
 				}
 				EnemyAttributes enemyAttributes = hit.collider.gameObject.GetComponent<EnemyAttributes>();
 				enemyAttributes.ApplyDamage((int)finalDamage);

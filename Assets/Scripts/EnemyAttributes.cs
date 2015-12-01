@@ -30,13 +30,13 @@ public class EnemyAttributes : MonoBehaviour {
 		for (int i = 0; i < numberOfShots; i++){
 
 			anim.SetTrigger("Shoot");
-			print ("enemy shooting");
+//			print ("enemy shooting");
 
 			int hitAccuracy = Random.Range (1,100);
 			bool hit = (hitAccuracy < accuracy ? true : false);         
 
 			if (hit){
-				print ("enemy hitting");
+//				print ("enemy hitting");
 				float finalDamage = damage;
 				int rand = Random.Range (1,100);
 				if (rand <= criticalChange){
