@@ -271,7 +271,7 @@ public class TileHandler : MonoBehaviour {
 					TileMap[x,y].type = Tile.TileType.ground1;
 					TileMap[x,y].gameObject.layer = 8; // Unwalkable
 					TileMap[x,y].SetTileMat(ground1);
-					TileMap[x,y].blocked = true;
+					//TileMap[x,y].blocked = true;
 				}
 
 			// not implemented yet
