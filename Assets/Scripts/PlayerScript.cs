@@ -90,7 +90,7 @@ public class PlayerScript : MonoBehaviour {
 
 	void OnTriggerStay(Collider other) {
 
-		if (other.name == "Health") {
+		if (other.tag == "Air") {
 			// If we're not on cooldown and health is greater than "0", then cooldown.
 			if(currentHealth < maxHealth) {
 
@@ -98,7 +98,7 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 
-		if(other.name == "Shop Area") {
+		if(other.tag == "Shop") {
 			guiShow = true;
 		}
 	}
