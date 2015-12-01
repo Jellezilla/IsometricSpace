@@ -56,7 +56,7 @@ public class GunController : MonoBehaviour {
 	void Update() {
 
 		for (int i = 0; i < guns.Length; i++) {
-			if (Input.GetKeyDown((i+1).ToString()) /*|| Input.GetKeyDown("{" + (i+1) + "}")*/) {
+			if (Input.GetKeyDown((i+1).ToString()) && guns[i] != null /*|| Input.GetKeyDown("{" + (i+1) + "}")*/) {
 				EquipGun(i);
 				break;
 			}

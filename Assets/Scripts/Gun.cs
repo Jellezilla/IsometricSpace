@@ -39,22 +39,19 @@ public class Gun : MonoBehaviour {
 	// How much the gun rotates upwards when firing.
 	float recoilAngle;
 
+	AmmunitionVariables ammoVariables;
 	public float currentAmmo;
 	public float currentClip;
 	public float maxAmmo;
 	public float maxClip;
-
-	//From tutorial
-//	public int totalAmmo = 40;
-//	public int ammoPerMag = 10;
-//	private int currentAmmoInMag;
-//	private bool reloading;
+	
 
 //	[HideInInspector]
 //	public AmmoGUI gui;
 
 	void Start() {
 		muzzleflash = GetComponent<MuzzleFlash>();
+		ammoVariables = GameObject.FindWithTag ("Player").GetComponent<AmmunitionVariables>();
 		shotsRemainingInBurst = burstCount;
 		Restock();
 
@@ -139,9 +136,26 @@ public class Gun : MonoBehaviour {
 			//recoilAngle = Mathf.Clamp(recoilAngle, 0, 30);
 
 			//currentAmmoInMag -= 1;
+
+			if (gameObject.tag == "Revolver") {
+				ammoVariables.revolverCurrentClip -= 1;
+				ammoVariables.revolverCurrentAmmo -= 1;
+				Debug.Log("revolverCurrentClip: " + ammoVariables.revolverCurrentClip);
+			}
+			else if (gameObject.tag == "Rifle") {
+				ammoVariables.rifleCurrentClip -= 1;
+				ammoVariables.rifleCurrentAmmo -= 1;
+				Debug.Log("rifleCurrentClip: " + ammoVariables.rifleCurrentClip);
+			}
+			else if (gameObject.tag == "Shotgun") {
+				ammoVariables.shotgunCurrentClip -= 1;
+				ammoVariables.shotgunCurrentAmmo -= 1;
+				Debug.Log("shotgunCurrentClip: " + ammoVariables.shotgunCurrentClip);
+			}
+
 		
-			currentClip -= 1;
-			currentAmmo -= 1;
+//			currentClip -= 1;
+//			currentAmmo -= 1;
 
 			Debug.Log(currentClip);
 			Debug.Log(currentAmmo);
