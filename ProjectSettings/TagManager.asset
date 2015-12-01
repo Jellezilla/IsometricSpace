@@ -19,6 +19,7 @@ TagManager:
   - Shop
   - Air
   - TileHandler
+  - CamTarget
   layers:
   - Default
   - TransparentFX

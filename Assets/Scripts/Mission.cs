@@ -24,6 +24,8 @@ public class Mission : MonoBehaviour {
 	// Use this for initialization
 	public void Awake () {
 		target = GameObject.FindGameObjectWithTag("MissionTarget").transform;
+		//playerAttributes = GameObject.FindWithTag("Player").transform.GetComponent<PlayerAttributes>();
+
 		playerAttributes = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttributes>();
 		playerAttributes.activeMissions.Add(this);
 		playerAttributes.currentMission = this;

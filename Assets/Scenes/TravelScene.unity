@@ -1502,6 +1502,10 @@ Prefab:
       value: 
       objectReference: {fileID: 12100000, guid: 8ba2e066399c74e4d83f80226f6a5de0,
         type: 2}
+    - target: {fileID: 117722, guid: f49e1e7dd82a61c4a94142f48e512645, type: 2}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f49e1e7dd82a61c4a94142f48e512645, type: 2}
   m_IsPrefabParent: 0
@@ -1534,6 +1538,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rows: 32
   columns: 32
+  PlayerPrefab: {fileID: 0}
+  SpaceshipPrefab: {fileID: 0}
   TilePrefab: {fileID: 116990, guid: fdc3542e20aed234dbb823db7c61b4e2, type: 2}
   WallPrefab: {fileID: 0}
 --- !u!4 &1411415073

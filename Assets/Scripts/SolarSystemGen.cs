@@ -172,7 +172,7 @@ public class SolarSystemGen : MonoBehaviour {
 		} else if (index == 3) {
 			pos = new Vector3(3000, 0, 3000);
 		}  
-		Debug.Log (pos);
+
 		return pos;
 	}
 	/// <summary>

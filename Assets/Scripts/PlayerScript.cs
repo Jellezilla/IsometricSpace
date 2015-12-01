@@ -50,6 +50,7 @@ public class PlayerScript : MonoBehaviour {
 		//HandleMovement();
 
 		if(!onAirArea && currentHealth > 0) {
+
 			CurrentHealth -= (1f * Time.fixedDeltaTime) * chargeDownSpeed;
 		}
 
@@ -91,6 +92,7 @@ public class PlayerScript : MonoBehaviour {
 	void OnTriggerStay(Collider other) {
 
 		if (other.tag == "Air") {
+
 			// If we're not on cooldown and health is greater than "0", then cooldown.
 			if(currentHealth < maxHealth) {
 

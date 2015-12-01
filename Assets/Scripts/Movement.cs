@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour {
 	GunController gunController;
 	
 	private CharacterController controller;
-	private Camera cam;
+
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +27,7 @@ public class Movement : MonoBehaviour {
         //maxSpeed = 3.0F;
 		gunController = GetComponent<GunController>();
 		controller = GetComponent<CharacterController>();
-		cam = Camera.main;
+
 
 		anim = transform.GetComponent<Animator>();
 	}

@@ -17,6 +17,7 @@ public class TileHandler : MonoBehaviour {
 
 	//private Transform tmp;
 
+	public GameObject PlayerPrefab;
 	public GameObject SpaceshipPrefab;
     public GameObject TilePrefab;    
 	public GameObject WallPrefab;
@@ -267,7 +268,7 @@ public class TileHandler : MonoBehaviour {
 					TileMap[x,y].SetTileMat(liquid);
 					TileMap[x,y].blocked = true;
 				} else if (map[x,y] == 8) {
-					Debug.Log ("8 is found!");
+
 					TileMap[x,y].type = Tile.TileType.ground1;
 					TileMap[x,y].gameObject.layer = 8; // Unwalkable
 					TileMap[x,y].SetTileMat(ground1);
@@ -341,12 +342,19 @@ public class TileHandler : MonoBehaviour {
 
 		Instantiate (SpaceshipPrefab, new Vector3 (xPos+0.5f, 1.1F, yPos+2.5f), Quaternion.identity);
 
+
+		//SpawnPlayer ();
 		// player should be spawned at 30x, 33z - ALWAYS!
 
-
-			
-
 	}
+	private void SpawnPlayer() {
+		GameObject player = (Instantiate (PlayerPrefab, new Vector3 (30, 1.0f, 33), Quaternion.identity) as GameObject);
+		//Camera cam = Camera.main;
+		GameObject cam = GameObject.FindGameObjectWithTag ("MainCamera");
+		CamSmoothFollowCustom csfc = cam.GetComponent<CamSmoothFollowCustom> ();
+		csfc.target = player.transform;
+	}
+
 
 
 	/// <summary>
