@@ -20,6 +20,9 @@ TagManager:
   - Air
   - TileHandler
   - CamTarget
+  - Revolver
+  - Rifle
+  - Shotgun
   layers:
   - Default
   - TransparentFX

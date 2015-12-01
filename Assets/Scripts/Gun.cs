@@ -179,24 +179,21 @@ public class Gun : MonoBehaviour {
 			currentClip -= 1;
 			currentAmmo -= 1;
 
+			Debug.Log(gameObject.tag + " " + currentClip);
+			Debug.Log(gameObject.tag + " " + currentAmmo);
+
 				if (gameObject.tag == "Revolver") {
 					ammoVariables.revolverCurrentClip = currentClip;
 					ammoVariables.revolverCurrentAmmo = currentAmmo;
-					//Debug.Log("revolverCurrentClip: " + ammoVariables.revolverCurrentClip);
 				}
 				else if (gameObject.tag == "Rifle") {
 					ammoVariables.rifleCurrentClip = currentClip;
 					ammoVariables.rifleCurrentAmmo = currentAmmo;
-					//Debug.Log("rifleCurrentClip: " + ammoVariables.rifleCurrentClip);
 				}
 				else if (gameObject.tag == "Shotgun") {
 					ammoVariables.shotgunCurrentClip = currentClip;
 					ammoVariables.shotgunCurrentAmmo = currentAmmo;
-					//Debug.Log("shotgunCurrentClip: " + ammoVariables.shotgunCurrentClip);
 				}
-
-			Debug.Log(currentClip);
-			Debug.Log(currentAmmo);
 		}
 		
 	}
