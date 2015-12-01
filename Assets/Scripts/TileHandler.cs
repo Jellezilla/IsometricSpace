@@ -17,6 +17,7 @@ public class TileHandler : MonoBehaviour {
 
 	//private Transform tmp;
 
+	public GameObject SpaceshipPrefab;
     public GameObject TilePrefab;    
 	public GameObject WallPrefab;
 	private GameStateHandler gsh;
@@ -25,18 +26,19 @@ public class TileHandler : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		gsh = GameObject.Find ("GameStateHandler").GetComponent<GameStateHandler> ();
-		Debug.Log (gsh.GetCurrentPlanetType ().ToString ());
+//		Debug.Log (gsh.GetCurrentPlanetType ().ToString ());
 		SpawnTiles ();
 		for (int i = 0; i < 12; i++) {
 			CellularAutomata ();
 		}
+		SpawnSpaceship ();
 		SetMaterials ();
 		//StartCoroutine (wait (2.2f));
 		SetColliderOnBlockedTiles ();
 		for (int j = 0; j < 4; j++) {
 			AddResources ();
 		}
-	
+		
 	
 		//TilePrefab.transform.GetComponent<Tile> ().type = Tile.TileType.unassigned;
 		//SpawnTileGroup ();
@@ -49,10 +51,7 @@ public class TileHandler : MonoBehaviour {
 	/// </summary>
 	void Update () {
 
-		if (Input.GetKeyDown (KeyCode.R)) {
-			Application.LoadLevel(Application.loadedLevel);
 
-		}
 		if (Input.GetKeyDown (KeyCode.T)) {
 			CellularAutomata ();
 			SetMaterials ();
@@ -60,6 +59,9 @@ public class TileHandler : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.U)) {
 			AddResources ();
 		}
+
+
+
 	}
 
 	public Tile GetWalkableTile(){
@@ -243,24 +245,32 @@ public class TileHandler : MonoBehaviour {
 		// 5 = gas
 		// 6 = crystal
 		// 7 = structure
+		// 8 = spaceship
+
 		for(int x = 0; x < rows; x++) {
 			for(int y = 0; y < columns; y++) {
-				if(tmpMap[x,y] == 1) {
+				if(map[x,y] == 1) {
 					TileMap[x,y].type = Tile.TileType.ground1;
 					TileMap[x,y].gameObject.layer = 9; // Grass
 					TileMap[x,y].SetTileMat(ground1);
-				} else if (tmpMap[x,y] == 2) {
+				} else if (map[x,y] == 2) {
 					TileMap[x,y].type = Tile.TileType.ground2;
 					TileMap[x,y].gameObject.layer = 10; // Sand
 					TileMap[x,y].SetTileMat(ground2);
-				} else if (tmpMap[x,y] == 3) {
+				} else if (map[x,y] == 3) {
 					TileMap[x,y].type = Tile.TileType.ground3;
 					TileMap[x,y].gameObject.layer = 11; // Mud
 					TileMap[x,y].SetTileMat(ground3);
-				} else if (tmpMap[x,y] == 4){
+				} else if (map[x,y] == 4){
 					TileMap[x,y].type = Tile.TileType.liquid;
 					TileMap[x,y].gameObject.layer = 8; // Unwalkable
 					TileMap[x,y].SetTileMat(liquid);
+					TileMap[x,y].blocked = true;
+				} else if (map[x,y] == 8) {
+					Debug.Log ("8 is found!");
+					TileMap[x,y].type = Tile.TileType.ground1;
+					TileMap[x,y].gameObject.layer = 8; // Unwalkable
+					TileMap[x,y].SetTileMat(ground1);
 					TileMap[x,y].blocked = true;
 				}
 
@@ -309,7 +319,7 @@ public class TileHandler : MonoBehaviour {
 	private void SetColliderOnBlockedTiles (){
 		for(int x = 0; x < rows; x++) {
 			for(int y = 0; y < columns; y++) {
-				if(TileMap[x,y].blocked && isNeighbourWalkable(x,y)) {
+				if(TileMap[x,y].blocked && isNeighbourWalkable(x,y) && map[x,y] != 8) {
 					TileMap[x,y].GetComponent<BoxCollider>().size = new Vector3(1.0f, 15.0f, 1.0f);
 
 				}
@@ -317,6 +327,27 @@ public class TileHandler : MonoBehaviour {
 		}
 		tileMapComplete = true;
 	}
+
+	public void SpawnSpaceship () {
+
+		int xPos = rows / 2;
+		int yPos = columns / 2;
+		for (int i = xPos-2; i < xPos+2; i++) {
+			for (int j = yPos-3; j < yPos+3; j++) {
+				map[i,j] = 8;
+				tmpMap[i,j] = 8;
+			}
+		}
+
+		Instantiate (SpaceshipPrefab, new Vector3 (xPos+0.5f, 1.1F, yPos+2.5f), Quaternion.identity);
+
+		// player should be spawned at 30x, 33z - ALWAYS!
+
+
+			
+
+	}
+
 
 	/// <summary>
 	/// Helper methods used by the method that adds colliders to the outer tiles of a blocked blop. 
