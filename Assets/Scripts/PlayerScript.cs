@@ -31,6 +31,11 @@ public class PlayerScript : MonoBehaviour {
 
 	private bool guiShow;
 	public float spaceCash = 200;
+	AmmunitionVariables ammoVariables;
+	Gun gun;
+//	public Text ammoText;
+//	AmmunitionVariables ammoVariables;
+//	Gun gun;
 
 	//PlayerController otherPlayerScript;
 
@@ -43,6 +48,9 @@ public class PlayerScript : MonoBehaviour {
 		// The x position of the bar at minimum health is the starting position of the bar minus the width of the rectangle (the health bar).
 		minXValue = healthTransform.position.x - healthTransform.rect.width;
 		currentHealth = maxHealth;
+
+		ammoVariables = GetComponent<AmmunitionVariables>();
+		gun = GetComponent<Gun>();
 	}
 	
 	// Update is called once per frame
@@ -63,6 +71,16 @@ public class PlayerScript : MonoBehaviour {
 		if (Input.GetMouseButtonUp(0)) {
 			GetComponent<GunController>().OnTriggerRelease();
 		}
+
+//		if (gun.gameObject.tag == "Revolver") {
+//		ammoText.text = ammoVariables.revolverCurrentClip + "/" + ammoVariables.revolverCurrentAmmo;
+//		}
+//		else if (gun.gameObject.tag == "Rifle") {
+//			ammoText.text = ammoVariables.rifleCurrentClip + "/" + ammoVariables.rifleCurrentAmmo;
+//		}
+//		else if (gun.gameObject.tag == "Shotgun") {
+//			ammoText.text = ammoVariables.shotgunCurrentClip + "/" + ammoVariables.shotgunCurrentAmmo;
+//		}
 	}
 
 	private void HandleHealth() {
@@ -117,8 +135,8 @@ public class PlayerScript : MonoBehaviour {
 
 	void OnGUI() {
 		if(guiShow == true) {
-			GUI.Box(new Rect(10, 60, 220, 350), "Buy items");
-			GUI.Label(new Rect(65, 383, 220, 35), "$pace Ca$h: " + spaceCash);
+			GUI.Box(new Rect(10, 60, 220, 530), "Buy items");
+			GUI.Label(new Rect(65, 565, 220, 35), "$pace Ca$h: " + spaceCash);
 			//GUI.Button shotgunButton = GUI.Button(new Rect(10, 310, 200, 30), "Buy shotgun");
 			if(GUI.Button(new Rect(20, 100, 200, 30), "Buy lighter space suit $110,00")) {
 				Debug.Log("You clicked 'Buy lighter space suit'");
@@ -142,10 +160,24 @@ public class PlayerScript : MonoBehaviour {
 				gameObject.GetComponent<GunController>().BuyRifle();
 			}
 
-
 			if (GUI.Button(new Rect(20, 340, 200, 30), "Buy shotgun $1.700,00")) {
 				spaceCash -= 1700;
 				gameObject.GetComponent<GunController>().BuyShotgun();
+			}
+
+			if (GUI.Button(new Rect(20, 400, 200, 30), "Buy 100 revolver rounds $30,00")) {
+				spaceCash -= 30;
+				ammoVariables.revolverCurrentAmmo += 100;
+			}
+
+			if (GUI.Button(new Rect(20, 460, 200, 30), "Buy 100 rifle rounds $40,00")) {
+				spaceCash -= 40;
+				ammoVariables.rifleCurrentAmmo += 100;
+			}
+
+			if (GUI.Button(new Rect(20, 520, 200, 30), "Buy 100 shotgun rounds $50,00")) {
+				spaceCash -= 50;
+				ammoVariables.shotgunCurrentAmmo += 100;
 			}
 		}
 	}

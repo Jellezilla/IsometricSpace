@@ -44,7 +44,7 @@ public class Gun : MonoBehaviour {
 	public float currentClip;
 	public float maxAmmo;
 	public float maxClip;
-	
+
 
 //	[HideInInspector]
 //	public AmmoGUI gui;
@@ -61,22 +61,7 @@ public class Gun : MonoBehaviour {
 //			gui.SetAmmoInfo(totalAmmo, currentAmmoInMag);
 //		}
 
-		if(gameObject.tag == "Revolver") {
-			currentAmmo = ammoVariables.revolverCurrentAmmo;
-			currentClip = ammoVariables.revolverCurrentClip;
-			maxAmmo = ammoVariables.revolverMaxAmmo;
-			maxClip = ammoVariables.revolverMaxClip;
-		} else if(gameObject.tag == "Rifle") {
-			currentAmmo = ammoVariables.rifleCurrentAmmo;
-			currentClip = ammoVariables.rifleCurrentClip;
-			maxAmmo = ammoVariables.rifleMaxAmmo;
-			maxClip = ammoVariables.rifleMaxClip;
-		} else if(gameObject.tag == "Shotgun") {
-			currentAmmo = ammoVariables.shotgunCurrentAmmo;
-			currentClip = ammoVariables.shotgunCurrentClip;
-			maxAmmo = ammoVariables.shotgunMaxAmmo;
-			maxClip = ammoVariables.shotgunMaxClip;
-		}  
+		SetAmmoVariables();	 
 	
 
 	}
@@ -102,24 +87,37 @@ public class Gun : MonoBehaviour {
 	}
 
 
-	//void SetCurrentGunType() {
-//		if(gameObject.tag == "Revolver") {
-//			currentAmmo = ammoVariables.revolverCurrentAmmo;
-//			currentClip = ammoVariables.revolverCurrentClip;
-//			maxAmmo = ammoVariables.revolverMaxAmmo;
-//			maxClip = ammoVariables.revolverMaxClip;
-//		} else if(gameObject.tag == "Rifle") {
-//			currentAmmo = ammoVariables.rifleCurrentAmmo;
-//			currentClip = ammoVariables.rifleCurrentClip;
-//			maxAmmo = ammoVariables.rifleMaxAmmo;
-//			maxClip = ammoVariables.rifleMaxClip;
-//		} else if(gameObject.tag == "Shotgun") {
-//			currentAmmo = ammoVariables.shotgunCurrentAmmo;
-//			currentClip = ammoVariables.shotgunCurrentClip;
-//			maxAmmo = ammoVariables.shotgunMaxAmmo;
-//			maxClip = ammoVariables.shotgunMaxClip;
-//		}  
+//	void BuyRevolverAmmo() {
+//		currentAmmo = ammoVariables.revolverCurrentAmmo;
 //	}
+//
+//	void BuyRifleAmmo() {
+//		currentAmmo = ammoVariables.rifleCurrentAmmo;
+//	} 
+//
+//	void BuyShotGunAmmo() {
+//		currentAmmo = ammoVariables.shotgunCurrentAmmo;
+//	}  
+	
+
+	public void SetAmmoVariables() {
+		if(gameObject.tag == "Revolver") {
+			currentAmmo = ammoVariables.revolverCurrentAmmo;
+			currentClip = ammoVariables.revolverCurrentClip;
+			maxAmmo = ammoVariables.revolverMaxAmmo;
+			maxClip = ammoVariables.revolverMaxClip;
+		} else if(gameObject.tag == "Rifle") {
+			currentAmmo = ammoVariables.rifleCurrentAmmo;
+			currentClip = ammoVariables.rifleCurrentClip;
+			maxAmmo = ammoVariables.rifleMaxAmmo;
+			maxClip = ammoVariables.rifleMaxClip;
+		} else if(gameObject.tag == "Shotgun") {
+			currentAmmo = ammoVariables.shotgunCurrentAmmo;
+			currentClip = ammoVariables.shotgunCurrentClip;
+			maxAmmo = ammoVariables.shotgunMaxAmmo;
+			maxClip = ammoVariables.shotgunMaxClip;
+		} 
+	}
 
 
 	void Shoot() {
