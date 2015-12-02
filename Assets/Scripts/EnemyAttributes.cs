@@ -41,6 +41,7 @@ public class EnemyAttributes : MonoBehaviour {
 				int rand = Random.Range (1,100);
 				if (rand <= criticalChange){
 					finalDamage *= criticalMultiplier;
+					GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>().ApplyDamage((int)finalDamage);
 				}
 			}
 		
@@ -73,11 +74,7 @@ public class EnemyAttributes : MonoBehaviour {
 		if (currentHealth > 0)
 			currentHealth -= dmg;
 	}
-
-
-
-
-
+	
 	public void MakeRequest(Vector3 target){
 		PathRequestManager.RequestPath(transform.position, target, OnPathFound);
 	}

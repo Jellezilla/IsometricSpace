@@ -491,16 +491,14 @@ GameObject:
   - 4: {fileID: 421914}
   - 54: {fileID: 5449388}
   - 136: {fileID: 13609106}
-  - 114: {fileID: 11476960}
   - 114: {fileID: 11432176}
   - 82: {fileID: 8260058}
   - 143: {fileID: 14347366}
   - 95: {fileID: 9563992}
   - 114: {fileID: 11411652}
   - 114: {fileID: 11471420}
-  - 114: {fileID: 11475662}
-  - 114: {fileID: 11402790}
-  - 114: {fileID: 11468500}
+  - 114: {fileID: 11488192}
+  - 114: {fileID: 11470066}
   m_Layer: 0
   m_Name: Astronaut
   m_TagString: Player
@@ -826,7 +824,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 175664}
   m_LocalRotation: {x: 0, y: .382683456, z: 0, w: .923879504}
-  m_LocalPosition: {x: 3.3599999, y: .100000024, z: 10.3900003}
+  m_LocalPosition: {x: 32, y: 2, z: 35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 414340}
@@ -1375,25 +1373,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11402790
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 175664}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce7a80d520cacc042b5fe14f373d8173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MovingTurnSpeed: 360
-  m_StationaryTurnSpeed: 180
-  m_JumpPower: 12
-  m_GravityMultiplier: 2
-  m_RunCycleLegOffset: .200000003
-  m_MoveSpeedMultiplier: 1
-  m_AnimSpeedMultiplier: 1
-  m_GroundCheckDistance: .100000001
 --- !u!114 &11411652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1414,6 +1393,12 @@ MonoBehaviour:
   healthText: {fileID: 0}
   visualHealth: {fileID: 0}
   spaceCash: 200
+  damage: 40
+  criticalChange: 20
+  criticalMultiplier: 2.5
+  currentMission: {fileID: 0}
+  activeMissions: []
+  completedMissions: []
 --- !u!114 &11432176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1429,20 +1414,29 @@ MonoBehaviour:
   rotationSpeed: 450
   walkSpeed: 2
   runSpeed: 8
---- !u!114 &11468500
+--- !u!114 &11470066
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 175664}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd6853a88e39947f082dbbd84d724762, type: 3}
+  m_Script: {fileID: 11500000, guid: ed734f0fe74264fbd8569bae4fad79f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 450
-  walkSpeed: 2
-  runSpeed: 8
+  revolverCurrentAmmo: 6
+  revolverCurrentClip: 12
+  revolverMaxAmmo: 6
+  revolverMaxClip: 24
+  rifleCurrentAmmo: 30
+  rifleCurrentClip: 90
+  rifleMaxAmmo: 30
+  rifleMaxClip: 120
+  shotgunCurrentAmmo: 2
+  shotgunCurrentClip: 8
+  shotgunMaxAmmo: 2
+  shotgunMaxClip: 32
 --- !u!114 &11471420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1464,18 +1458,7 @@ MonoBehaviour:
   - {fileID: 11470542, guid: 42459ff30009b414ca4ac858c50b1387, type: 2}
   - {fileID: 11416906, guid: 8c7adc2072d744aecbf2282f28244c92, type: 2}
   equippedGun: {fileID: 0}
---- !u!114 &11475662
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 175664}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 521b611700410be45810047f0a74e899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11476960
+--- !u!114 &11488192
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1483,14 +1466,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 175664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fdd0d307cd22403e8b4cb54ae710e7e, type: 3}
+  m_Script: {fileID: 11500000, guid: dde5800c62eae4d3d88d752716ddebc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cash: 0
-  maxHealth: 100
-  currentMission: {fileID: 0}
-  activeMissions: []
-  completedMissions: []
+  anim: {fileID: 0}
 --- !u!136 &13609106
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1522,9 +1501,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1593,9 +1570,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}

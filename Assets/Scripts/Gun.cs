@@ -51,7 +51,7 @@ public class Gun : MonoBehaviour {
 
 	void Start() {
 		muzzleflash = GetComponent<MuzzleFlash>();
-		ammoVariables = GameObject.FindWithTag ("Player").GetComponent<AmmunitionVariables>();
+		ammoVariables = GameObject.FindGameObjectWithTag ("Player").GetComponent<AmmunitionVariables>();
 		shotsRemainingInBurst = burstCount;
 		//Restock();
 
@@ -166,9 +166,10 @@ public class Gun : MonoBehaviour {
 			Instantiate(shell, shellEjection.position, shellEjection.rotation);
 			
 			// Activate muzzleflash. "Activate" method declared in "MuzzleFlash" script.
-			muzzleflash.Activate();
+			//muzzleflash.Activate();
 
-			transform.localPosition -= Vector3.forward * Random.Range(kickMinMax.x, kickMinMax.y);
+			float kick = Random.Range(kickMinMax.x, kickMinMax.y);
+			transform.localPosition -= Vector3.forward * kick;
 			//recoilAngle += Random.Range(recoilAngleMinMax.x, recoilAngleMinMax.y);
 			//recoilAngle = Mathf.Clamp(recoilAngle, 0, 30);
 
@@ -177,8 +178,8 @@ public class Gun : MonoBehaviour {
 			currentClip -= 1;
 			currentAmmo -= 1;
 
-			Debug.Log(gameObject.tag + " " + currentClip);
-			Debug.Log(gameObject.tag + " " + currentAmmo);
+//			Debug.Log(gameObject.tag + " " + currentClip);
+//			Debug.Log(gameObject.tag + " " + currentAmmo);
 
 				if (gameObject.tag == "Revolver") {
 					ammoVariables.revolverCurrentClip = currentClip;
@@ -192,6 +193,26 @@ public class Gun : MonoBehaviour {
 					ammoVariables.shotgunCurrentClip = currentClip;
 					ammoVariables.shotgunCurrentAmmo = currentAmmo;
 				}
+
+
+			RaycastHit hit;
+			PlayerScript playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
+				//Vector3 direction = GetComponent<Rigidbody>().velocity.normalized;
+			Debug.DrawRay(transform.position, transform.forward.normalized*100, Color.blue);
+			if(Physics.Raycast(transform.position, transform.forward, out hit, 100)){	
+				if (hit.collider.tag == "Enemy"){
+					float finalDamage = playerScript.damage;
+					int rand = Random.Range (1,100);
+					if (rand <= playerScript.criticalChange){
+						finalDamage *= playerScript.criticalMultiplier;
+							//print("CRITICAL HIT");
+					}
+					EnemyAttributes enemyAttributes = hit.collider.gameObject.GetComponent<EnemyAttributes>();
+					enemyAttributes.ApplyDamage((int)finalDamage);
+					enemyAttributes.TriggerHitAnimation(true);
+				}
+			}
+			
 		}
 		
 	}
