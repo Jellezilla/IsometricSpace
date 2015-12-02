@@ -3,7 +3,7 @@ using System.Collections;
 
 public class boogieControl : MonoBehaviour {
 
-
+	[HideInInspector]
 	public Animator anim;
 	// Use this for initialization
 	void Start () {

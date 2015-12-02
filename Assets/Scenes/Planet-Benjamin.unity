@@ -153,22 +153,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 20928237}
   m_Mesh: {fileID: 4300016, guid: 7c9abc290880b3242b73cf0718128dc5, type: 3}
---- !u!1 &32926767 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 175664, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-  m_PrefabInternal: {fileID: 754685158}
---- !u!114 &32926777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 32926767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde5800c62eae4d3d88d752716ddebc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 0}
 --- !u!4 &72460240 stripped
 Transform:
   m_PrefabParentObject: {fileID: 475424, guid: fdc3542e20aed234dbb823db7c61b4e2, type: 2}
@@ -620,6 +604,18 @@ Prefab:
       propertyPath: patrolPoints.Array.data[2]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6592914, guid: e5836d050fdb354479bcd0d285bf2f22, type: 2}
+      propertyPath: m_Center.y
+      value: .949999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592914, guid: e5836d050fdb354479bcd0d285bf2f22, type: 2}
+      propertyPath: m_Size.x
+      value: .870000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 100116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 2}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5836d050fdb354479bcd0d285bf2f22, type: 2}
   m_IsPrefabParent: 0
@@ -866,45 +862,22 @@ Prefab:
       value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 11411652, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
+      propertyPath: healthTransform
+      value: 
+      objectReference: {fileID: 711638588}
+    - target: {fileID: 11411652, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1590641678}
-    - target: {fileID: 11411652, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-      propertyPath: visualHealth
-      value: 
-      objectReference: {fileID: 711638589}
     - target: {fileID: 11411652, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
       propertyPath: healthText
       value: 
       objectReference: {fileID: 4180211}
     - target: {fileID: 11411652, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-      propertyPath: healthTransform
+      propertyPath: visualHealth
       value: 
-      objectReference: {fileID: 711638588}
-    - target: {fileID: 13609106, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 14347366, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11411652, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11471420, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11475662, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11475662, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-    - {fileID: 11402790, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-    - {fileID: 11468500, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
+      objectReference: {fileID: 711638589}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &754685159 stripped
@@ -1626,33 +1599,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a87829efe298f4b5697b025e03d7afd1, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1679695715 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 175664, guid: 22fcd07f70fa04bb79a0f5cb3d6d2e23, type: 2}
-  m_PrefabInternal: {fileID: 754685158}
---- !u!114 &1679695716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1679695715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed734f0fe74264fbd8569bae4fad79f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  revolverCurrentAmmo: 100
-  revolverCurrentClip: 20
-  revolverMaxAmmo: 100
-  revolverMaxClip: 20
-  rifleCurrentAmmo: 100
-  rifleCurrentClip: 20
-  rifleMaxAmmo: 100
-  rifleMaxClip: 20
-  shotgunCurrentAmmo: 100
-  shotgunCurrentClip: 20
-  shotgunMaxAmmo: 100
-  shotgunMaxClip: 20
 --- !u!1 &1751208312
 GameObject:
   m_ObjectHideFlags: 0

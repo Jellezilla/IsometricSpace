@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class PlayerScript : MonoBehaviour {
 
@@ -16,6 +18,7 @@ public class PlayerScript : MonoBehaviour {
 	private bool onAirArea = false;
 	public float chargeDownSpeed = 1f;
 	public float chargeUpSpeed = 10f;
+	GameStateHandler gsh;
 	
 	// Everytime we access the CurrentHealth property, which changes the health, then the "HandleHealth" method is called, which adjusts the position and color of the health bar
 	private float CurrentHealth {
@@ -32,10 +35,26 @@ public class PlayerScript : MonoBehaviour {
 	private bool guiShow;
 	public float spaceCash = 200;
 
+	//public int cash = 0;
+//	public int maxHealth = 100;
+//	public int currentHealth {get; private set;}
+	public bool alive {get; private set;}
+	bool respawned = false;
+	
+	public int damage = 40;
+	public float criticalChange = 20;
+	public float criticalMultiplier = 2.5f;
+	
+	public Mission currentMission;
+	public List<Mission> activeMissions = new List<Mission>();
+	public List<Mission> completedMissions = new List<Mission>();
+
+
 	//PlayerController otherPlayerScript;
 
 	// Use this for initialization
 	void Start () {
+		alive = true;
 		// Storing the Y position of the health bar.
 		cachedY = healthTransform.position.y;
 		// Storing the X value of the bar at max health, which is the starting position of the bar.
@@ -43,14 +62,37 @@ public class PlayerScript : MonoBehaviour {
 		// The x position of the bar at minimum health is the starting position of the bar minus the width of the rectangle (the health bar).
 		minXValue = healthTransform.position.x - healthTransform.rect.width;
 		currentHealth = maxHealth;
+
+		gsh = GameObject.Find("GameStateHandler").GetComponent<GameStateHandler>();
+	}
+
+	public void ApplyDamage(int dmg){
+		if (CurrentHealth > 0)
+			CurrentHealth -= dmg;
+
+		if (CurrentHealth <= 0){
+			alive = false;
+		}
+	}
+
+
+	IEnumerator Respawn() {
+		float fadeTime = GameObject.Find ("SceneFader").GetComponent<Fading>().BegindFade(1);
+		respawned = true;
+		yield return new WaitForSeconds (fadeTime);
+		alive = true;
+		Application.LoadLevel (1);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//HandleMovement();
 
-		if(!onAirArea && currentHealth > 0) {
+		if (!alive && !respawned){
+			StartCoroutine(Respawn());
+		}
 
+		if(!onAirArea && currentHealth > 0) {
 			CurrentHealth -= (1f * Time.fixedDeltaTime) * chargeDownSpeed;
 		}
 
@@ -92,7 +134,6 @@ public class PlayerScript : MonoBehaviour {
 	void OnTriggerStay(Collider other) {
 
 		if (other.tag == "Air") {
-
 			// If we're not on cooldown and health is greater than "0", then cooldown.
 			if(currentHealth < maxHealth) {
 
