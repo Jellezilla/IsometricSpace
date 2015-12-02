@@ -24,7 +24,6 @@ public class FiniteStateMachine : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag("Player").transform;
 		state = State.Patrol;
 		patrol = GetComponent<Patrol>();
-		anim = GetComponent<Animator>();
 	}
 
 	// Update is called once per frame
@@ -59,7 +58,7 @@ public class FiniteStateMachine : MonoBehaviour {
 			enemy.StopPathFollowing();
 			patrol.shouldPatrol = false;
 			transform.forward = player.position - transform.position;
-		//	transform.Translate(Vector3.forward * 1 * Time.deltaTime);
+			transform.Translate(Vector3.forward * 1 * Time.deltaTime);
 			if (setAttackOnce)
 				StartCoroutine(AttackPlayer());
 			break;
@@ -80,7 +79,6 @@ public class FiniteStateMachine : MonoBehaviour {
 			StopCoroutine(AttackPlayer());
 			Vector3 tmp = transform.position;
 			transform.position = tmp;
-			anim.SetBool("Alive", false);
 			break;
 		}
 

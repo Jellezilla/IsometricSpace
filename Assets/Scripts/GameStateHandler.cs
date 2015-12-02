@@ -6,14 +6,6 @@ public class GameStateHandler : MonoBehaviour {
 	private Texture2D GameLogo;
 	private Material currentMat;
 
-	private int spaceCash;
-
-	public int GetSpaceCash() {
-		return spaceCash;
-	}
-	public void SetSpaceCash(int adj) {
-		spaceCash = adj;
-	}
 
 	public enum PlanetType { Warm, Habitable, Cold };
 		private PlanetType _planetType;

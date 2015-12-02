@@ -13,7 +13,7 @@ public class Mission : MonoBehaviour {
 	public MissionRewardType rewardType;
 	public bool completed {get; protected set;}
 	protected bool rewardGiven = false;
-	protected PlayerScript playerScript;
+	protected PlayerAttributes playerAttributes;
 	public int rewardValue = 50;
 	private Transform target;
 
@@ -26,9 +26,9 @@ public class Mission : MonoBehaviour {
 		target = GameObject.FindGameObjectWithTag("MissionTarget").transform;
 		//playerAttributes = GameObject.FindWithTag("Player").transform.GetComponent<PlayerAttributes>();
 
-		playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
-		playerScript.activeMissions.Add(this);
-		playerScript.currentMission = this;
+		playerAttributes = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttributes>();
+		playerAttributes.activeMissions.Add(this);
+		playerAttributes.currentMission = this;
 	}
 	
 	// Update is called once per frame
@@ -64,13 +64,13 @@ public class Mission : MonoBehaviour {
 	}
 
 	protected void HandleReward(){
-		playerScript.currentMission = null;
-		playerScript.completedMissions.Add(this);
-		playerScript.activeMissions.Remove(this);
+		playerAttributes.currentMission = null;
+		playerAttributes.completedMissions.Add(this);
+		playerAttributes.activeMissions.Remove(this);
 		rewardGiven = true;
 		switch(rewardType){
 		case MissionRewardType.Money:
-			playerScript.spaceCash += rewardValue;
+			playerAttributes.cash += rewardValue;
 			break;
 		}
 	}
