@@ -19,6 +19,8 @@ public class PlayerScript : MonoBehaviour {
 	public float chargeDownSpeed = 1f;
 	public float chargeUpSpeed = 10f;
 	GameStateHandler gsh;
+	private bool terraFormerPurchased = false;
+
 	
 	// Everytime we access the CurrentHealth property, which changes the health, then the "HandleHealth" method is called, which adjusts the position and color of the health bar
 	private float CurrentHealth {
@@ -188,6 +190,13 @@ public class PlayerScript : MonoBehaviour {
 				spaceCash -= 1700;
 				gameObject.GetComponent<GunController>().BuyShotgun();
 			}
+			if(GUI.Button (new Rect (20, 400, 200, 30), "Buy Terraformer $2.500,00")) {
+				spaceCash -= 2500;
+				terraFormerPurchased = true;
+			}
+		}
+		if (terraFormerPurchased) {
+
 		}
 	}
 
